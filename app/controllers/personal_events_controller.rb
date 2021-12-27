@@ -1,0 +1,2 @@
+class PersonalEventsController < ApplicationController
+end
