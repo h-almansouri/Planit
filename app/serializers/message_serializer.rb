@@ -1,5 +1,5 @@
 class MessageSerializer < ActiveModel::Serializer
   attributes :id, :message
-  has_one :user_id
-  has_one :group_id
+  has_one :user
+  has_one :group
 end
