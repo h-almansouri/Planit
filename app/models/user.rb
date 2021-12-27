@@ -6,4 +6,6 @@ class User < ApplicationRecord
     has_many :group_messages, through: :messages, source: :group
     has_many :group_joins, through: :joined_groups, source: :group
     has_many :group_admins, through: :admin_groups, source: :group
+
+    validates :name, presence: true
 end

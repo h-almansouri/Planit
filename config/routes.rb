@@ -1,10 +1,10 @@
 Rails.application.routes.draw do
   
-  resources :admin_groups
-  resources :joined_groups
-  resources :messages
-  resources :group_events
-  resources :personal_events
+  # resources :admin_groups
+  # resources :joined_groups
+  # resources :messages
+  # resources :group_events
+  # resources :personal_events
   resources :groups
   resources :users
   # Routing logic: fallback requests for React Router.
