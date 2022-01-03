@@ -8,8 +8,48 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-function Login(){
+
+function Login({ setCurrentUser }){
+
+	const [formData, setFormData] = useState({
+		username: '',
+		password: ''
+	})
+
+  let history = useNavigate();
+
+	const handleSubmit = (e) => {
+		e.preventDefault()
+
+		const configObj = {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify(formData)
+		}
+
+		fetch('/login', configObj).then((resp) =>{ 
+			if (resp.ok) {
+				resp.json().then((user) => {
+          setCurrentUser(user)
+          history('/')
+        })
+			  } else {
+          resp.json().then((errors) => {
+            alert(errors.error);
+          })
+			  }
+		})
+
+		setFormData({
+			username: '',
+			password: ''
+		})
+	}
 
 	return(
       <Container component="main" maxWidth="xs">
@@ -26,9 +66,9 @@ function Login(){
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+            Log In
           </Typography>
-          <Box component="form" onSubmit={console.log('submit')} noValidate sx={{ mt: 1 }}>
+          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
             <TextField
               margin="normal"
               required
@@ -37,7 +77,8 @@ function Login(){
               label="Username"
               name="username"
               autoComplete="username"
-              autoFocus
+			  value={formData.username}
+			  onChange={(e) => setFormData({...formData, username: e.target.value})}
             />
             <TextField
               margin="normal"
@@ -48,6 +89,8 @@ function Login(){
               type="password"
               id="password"
               autoComplete="current-password"
+			  value={formData.password}
+			  onChange={(e) => setFormData({...formData, password: e.target.value})}
             />
             <Button
               type="submit"
@@ -55,7 +98,7 @@ function Login(){
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Sign In
+              Log In
             </Button>
             <Grid container>
               <Grid item>

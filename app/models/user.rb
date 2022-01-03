@@ -8,6 +8,6 @@ class User < ApplicationRecord
     has_many :group_joins, through: :joined_groups, source: :group
     has_many :group_admins, through: :admin_groups, source: :group
 
-    validates :name, presence: true
+    validates :username, presence: true
     validates :password_confirmation, presence: true
 end

@@ -7,7 +7,7 @@ import 'react-big-calendar/lib/sass/styles.scss';
 
 const localizer = momentLocalizer(moment)
 
-function DisplayCalendar(){
+function DisplayCalendar({currentUser}){
 
     const [selected, setSelected] = useState();
 
