@@ -1,0 +1,2 @@
+class JoinedGroupsController < ApplicationController
+end
