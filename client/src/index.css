@@ -11,3 +11,43 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.home-div {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+.home-nav {
+  padding: 1%;
+  display: flex;
+  justify-content: space-between;
+}
+.home-prof {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+}
+.home-servers-list {
+  margin-top: 5%;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.home-server {
+  margin: 2px;
+  height: 100px;
+  width: 100px;
+  border: 1px solid black;
+  border-radius: 100%;
+  overflow: hidden;
+  text-align: center;
+}
+.prof-pic {
+  height: 64px;
+  width: 64px;
+  border: 1px solid black;
+  border-radius: 100%;
+  text-align: center;
+  overflow: hidden;
+}
