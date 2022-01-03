@@ -21,7 +21,7 @@ Rails.application.routes.draw do
   delete '/logout', to: 'sessions#destroy'
 
 
-  #user custome routes
+  #user custom routes
   get '/my_admin_groups', to: 'users#admin_groups'
   get '/my_joined_groups', to: 'users#joined_groups'
   get '/my_messages', to: 'users#my_messages'

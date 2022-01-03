@@ -35,7 +35,7 @@ class UsersController < ApplicationController
         if current_user
             render json: current_user, status: :ok
         else
-            render json: {error: "Not authorized"}, status: :unauthorized
+            render json: {error: "Not logged in"}, status: :unauthorized
         end
     end
 
@@ -62,7 +62,7 @@ class UsersController < ApplicationController
     private
 
     def user_params
-        params.permit(:name, :profile_picture, :birthday, :bio)
+        params.permit(:name, :profile_picture, :birthday, :bio, :password, :password_confirmation)
     end
 
     def find_user

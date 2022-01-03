@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+    has_secure_password
     has_many :personal_events
     has_many :messages
     has_many :joined_groups
@@ -8,4 +9,5 @@ class User < ApplicationRecord
     has_many :group_admins, through: :admin_groups, source: :group
 
     validates :name, presence: true
+    validates :password_confirmation, presence: true
 end
