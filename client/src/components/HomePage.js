@@ -1,10 +1,15 @@
 
-function HomePage(){
+function HomePage({setCurrentUser}){
 
+    const handleLogout = () => {
+        setCurrentUser(null)
+        fetch('/logout', { method: 'DELETE' })
+    }
 
     return(
         <div>
-            hi
+            homepage
+            <button onClick={handleLogout}>logout</button>
         </div>
     )
 }

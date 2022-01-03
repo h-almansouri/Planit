@@ -8,9 +8,51 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import { useState } from 'react';
 
 
-function Signup() {
+function Signup({ setCurrentUser }) {
+
+  const [formData, setFormData] = useState({
+    username: '',
+    password: '',
+    password_confirmation: ''
+  })
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+
+    const configObj = {
+      method: 'POST',
+      headers: { 
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(formData)
+    }
+
+    fetch('/signup', configObj).then((res) => {
+      if (res.ok) {
+        res.json().then((user) => {
+          console.log(user);
+          setCurrentUser(user);
+        });
+      } else {
+        res.json().then((errors) => {
+         alert(errors.errors);
+        });
+      }
+    })
+
+    setFormData({
+      username: '',
+      password: '',
+      password_confirmation: ''
+    })
+  }
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value })
+  }
 
   return (
       <Container component="main" maxWidth="xs">
@@ -29,7 +71,7 @@ function Signup() {
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>
-          <Box component="form" noValidate onSubmit={console.log('submit')} sx={{ mt: 3 }}>
+          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField
@@ -39,7 +81,8 @@ function Signup() {
                   fullWidth
                   id="username"
                   label="Username"
-                  autoFocus
+                  onChange={(e) => handleChange(e)}
+                  value={formData.username}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -51,17 +94,21 @@ function Signup() {
                   name="password"
                   autoComplete="new-password"
                   type="password"
+                  onChange={(e) => handleChange(e)}
+                  value={formData.password}
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
                   required
                   fullWidth
-                  name="confirm_password"
+                  name="password_confirmation"
                   label="Confirm Password"
                   type="password"
-                  id="confirm_password"
+                  id="password_confirmation"
                   autoComplete="confirm-password"
+                  onChange={(e) => handleChange(e)}
+                  value={formData.password_confirmation}
                 />
               </Grid>
             </Grid>
@@ -76,7 +123,7 @@ function Signup() {
             <Grid container justifyContent="flex-end">
               <Grid item>
                 <Link href="/login" variant="body2">
-                  Already have an account? Sign in
+                  Already have an account? Log in
                 </Link>
               </Grid>
             </Grid>
