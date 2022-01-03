@@ -9,6 +9,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 
 function Signup({ setCurrentUser }) {
@@ -18,6 +19,8 @@ function Signup({ setCurrentUser }) {
     password: '',
     password_confirmation: ''
   })
+
+  let history = useNavigate()
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -35,6 +38,7 @@ function Signup({ setCurrentUser }) {
         res.json().then((user) => {
           console.log(user);
           setCurrentUser(user);
+          history('/')
         });
       } else {
         res.json().then((errors) => {

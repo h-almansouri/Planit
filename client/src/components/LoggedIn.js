@@ -3,13 +3,13 @@ import HomePage from './HomePage'
 import DisplayCalendar from './DisplayCalendar'
 
 
-function LoggedIn({ setCurrentUser}){
+function LoggedIn({ setCurrentUser, currentUser }){
 
 
     return(
         <Routes>
             <Route path='/' element={<HomePage setCurrentUser={setCurrentUser}/>} />
-            <Route path='/calendar' element={<DisplayCalendar />}/>
+            <Route path='/calendar' element={<DisplayCalendar currentUser={currentUser}/>}/>
         </Routes>
     )
 }
