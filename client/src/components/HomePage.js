@@ -1,6 +1,10 @@
 
-function HomePage(){
+function HomePage({setCurrentUser}){
 
+    const handleLogout = () => {
+        setCurrentUser(null)
+        fetch('/logout', { method: 'DELETE' })
+    }
 
     return(
         <div className="home-div">
@@ -19,7 +23,11 @@ function HomePage(){
                 <span className="home-server">Serv4</span>
                 <span className="home-server">+</span>
             </div>
-        </div>
+            <div>
+              homepage
+              <button onClick={handleLogout}>logout</button>
+            </div>
+      </div>
     )
 }
 

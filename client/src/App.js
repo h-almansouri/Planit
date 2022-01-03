@@ -1,21 +1,37 @@
 import './App.css';
-import LandingPage from './components/LandingPage'
-import Login from './components/Login'
-import Signup from './components/Signup'
-import HomePage from './components/HomePage'
-import DisplayCalendar from './components/DisplayCalendar';
-import { Routes, Route } from "react-router-dom";
+import { useState, useEffect } from 'react';
+import LoggedIn from './components/LoggedIn'
+import LoggedOut from './components/LoggedOut'
 
 
 function App() {
+
+  const [currentUser, setCurrentUser] = useState(null);
+  const [authenticated, setAuthenticated] = useState(false);
+  console.log(currentUser);
+  useEffect(() => {
+    fetch("/me", {
+      credentials: "include",
+    }).then((res) => {
+      if (res.ok) {
+        res.json().then((user) => {
+          setCurrentUser(user);
+          setAuthenticated(true);
+        });
+      } else {
+        setAuthenticated(true);
+      }
+    });
+  }, []);
+
+  if (!authenticated) {
+    return <div></div>;
+  }
+
   return (
-      <Routes>
-        <Route path='' element={<LandingPage />}/>
-        <Route path='/login' element={<Login />}/>
-        <Route path='/signup' element={<Signup />}/>
-        <Route path='/home' element={<HomePage />}/>
-        <Route path='/calendar' element={<DisplayCalendar />}/>
-      </Routes>
+      <>
+        {currentUser ? (<LoggedIn setCurrentUser={setCurrentUser} currentUser={currentUser}/>) : (<LoggedOut setCurrentUser={setCurrentUser} currentUser={currentUser}/>)}
+      </>
   );
 }
 

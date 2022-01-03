@@ -11,11 +11,11 @@ class ApplicationController < ActionController::API
   private
 
   def not_found(exception)
-    render json: {error: "#{exception.model} not found"}
+    render json: {error: "#{exception.model} not found"}, status: :not_found
   end
 
   def record_invalid(exception)
-    render json: {errors: exception.record.errors.full_messages}
+    render json: {errors: exception.record.errors.full_messages}, status: :unprocessable_entity
   end
 
   def current_user
