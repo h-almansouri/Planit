@@ -1,10 +1,10 @@
 puts "🌱 Seeding spices..."
 
 puts 'Creating users...'
-mike = User.create(username: "neisguy", birthday: DateTime.new(1997,4,15), profile_picture: "https://www.nicepng.com/png/detail/246-2469081_jake-adventure-time-and-jake-the-dog-image.png", bio: "bogos binted", password: "planit")
-hisham = User.create(username: "velcruza", birthday: DateTime.new(1999,7,25), profile_picture: "https://www.nicepng.com/png/detail/246-2469081_jake-adventure-time-and-jake-the-dog-image.png", bio: "bogos binted", password: "planit")
-joe = User.create(username: "goldennugget", birthday: DateTime.new(1996,7,10), profile_picture: "https://www.nicepng.com/png/detail/246-2469081_jake-adventure-time-and-jake-the-dog-image.png", bio: "bogos binted", password: "planit")
-mitch = User.create(username: "chocolaterain", birthday: DateTime.new(1997,3,30), profile_picture: "https://www.nicepng.com/png/detail/246-2469081_jake-adventure-time-and-jake-the-dog-image.png", bio: "bogos binted", password: "planit")
+mike = User.create(username: "neisguy", birthday: DateTime.new(1997,4,15), profile_picture: "https://www.nicepng.com/png/detail/246-2469081_jake-adventure-time-and-jake-the-dog-image.png", bio: "bogos binted", password: "planit", password_confirmation: "planit")
+hisham = User.create(username: "velcruza", birthday: DateTime.new(1999,7,25), profile_picture: "https://www.nicepng.com/png/detail/246-2469081_jake-adventure-time-and-jake-the-dog-image.png", bio: "bogos binted", password: "planit", password_confirmation: "planit")
+joe = User.create(username: "goldennugget", birthday: DateTime.new(1996,7,10), profile_picture: "https://www.nicepng.com/png/detail/246-2469081_jake-adventure-time-and-jake-the-dog-image.png", bio: "bogos binted", password: "planit", password_confirmation: "planit")
+mitch = User.create(username: "chocolaterain", birthday: DateTime.new(1997,3,30), profile_picture: "https://www.nicepng.com/png/detail/246-2469081_jake-adventure-time-and-jake-the-dog-image.png", bio: "bogos binted", password: "planit", password_confirmation: "planit")
 
 
 puts 'Creating groups...'
