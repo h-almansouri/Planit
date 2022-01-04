@@ -1,5 +1,5 @@
 import {useState, useEffect} from 'react'
-import GroupCircle from './GroupCircle'
+import Wheel from './Wheel'
 
 function HomePage({setCurrentUser, currentUser}){
 
@@ -29,13 +29,6 @@ function HomePage({setCurrentUser, currentUser}){
             <div className="home-prof">
                 <span className="prof-pic">Prof Pic</span>
                 <h2>Welcome {currentUser.username}!</h2>
-            </div>
-            <div className="home-servers-list">
-                <span className="home-server" >Serv1</span>
-                <span className="home-server">Serv2</span>
-                <span className="home-server">Serv3</span>
-                <span className="home-server">Serv4</span>
-                <span className="home-server">+</span>
             </div>
             <div>
               homepage
