@@ -1,7 +1,7 @@
 import {useState, useEffect} from 'react'
 import GroupCircle from './GroupCircle'
 
-function HomePage({setCurrentUser}){
+function HomePage({setCurrentUser, currentUser}){
 
     const [allGroups, setAllGroups] = useState([])
 
@@ -18,15 +18,17 @@ function HomePage({setCurrentUser}){
         fetch('/logout', { method: 'DELETE' })
     }
 
+    const systems = allGroups.map(collection => <GroupCircle key={collection[0]} array={collection}/>)
+
     return(
         <div className="home-div">
             <div className="home-nav">
-                <span>Calender</span>
+                <a href='/calendar'>Calender</a>
                 <button>Logout</button>
             </div>
             <div className="home-prof">
                 <span className="prof-pic">Prof Pic</span>
-                <h2>Welcome Username!</h2>
+                <h2>Welcome {currentUser.username}!</h2>
             </div>
             <div className="home-servers-list">
                 <span className="home-server" >Serv1</span>
@@ -38,7 +40,7 @@ function HomePage({setCurrentUser}){
             <div>
               homepage
               <button onClick={handleLogout}>logout</button>
-              <GroupCircle array={allGroups} />
+              {systems}
             </div>
       </div>
     )

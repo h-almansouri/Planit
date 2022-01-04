@@ -55,8 +55,12 @@ class UsersController < ApplicationController
         render json: current_user.personal_events, status: :ok
     end
 
+    def group_events
+        render json: current_user, serializer: UserGroupEventListSerializer, status: :ok
+    end
+
     def all_events
-        render json: current_user, serializer: UserAllEventListSerializer, status: :ok
+        render json: current_user, serializer: AllEventsSerializer, status: :ok
     end
 
     def all_groups
