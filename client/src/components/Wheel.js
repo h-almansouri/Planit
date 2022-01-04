@@ -2,9 +2,12 @@ import React from 'react';
 import Card from './Card.js';
 
 class Wheel extends React.Component {
+
+    
+
     constructor(props) {
         super(props)
-
+    
         this.state = {
             radius: 150,
             cards: [],
@@ -30,6 +33,8 @@ class Wheel extends React.Component {
 
         this.setState({ cards: temp_cards });
     }
+
+
 
     handle_scroll = event => {
         clearTimeout(this.anim_id);
