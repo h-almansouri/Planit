@@ -1,7 +1,7 @@
 import { Calendar, momentLocalizer, Views } from 'react-big-calendar';
 import moment from 'moment';
 // import 'react-big-calendar/lib/css/react-big-calendar.css';
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 import 'react-big-calendar/lib/sass/styles.scss';
 
 
@@ -10,6 +10,17 @@ const localizer = momentLocalizer(moment)
 function DisplayCalendar({currentUser}){
 
     const [selected, setSelected] = useState();
+    const [allEvents, setAllEvents] = useState([]);
+
+    useEffect(() => {
+        fetch('/all_events')
+        .then(res => res.json())
+        .then(data =>{
+            setAllEvents(data.list_all_events);
+        })
+      }, [])
+
+      console.log(allEvents)
 
     const handleSelected = (event) => {
         setSelected(event);
@@ -42,6 +53,9 @@ function DisplayCalendar({currentUser}){
         color: 'pink'
       }
     ]
+
+
+    console.log(myEventsList)
 
     const eventStyleGetter = (event) => {
         const style = {

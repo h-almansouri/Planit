@@ -28,6 +28,7 @@ Rails.application.routes.draw do
   get '/my_messages', to: 'users#my_messages'
   get '/my_personal_events', to: 'users#personal_events'
   get '/my_group_events', to: 'users#group_events'
+  get '/all_events', to: 'users#all_events'
 
   
 
