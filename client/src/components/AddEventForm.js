@@ -1,16 +1,29 @@
 import Modal from 'react-bootstrap/Modal'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
-import { useState } from 'react'
+import { useState, useEffect} from 'react'
 import TimePicker from 'react-bootstrap-time-picker';
 
 function AddEventForm({showAdd, handleClose}){
 
     const [formData, setFormData] = useState({})
+    const [adminGroups, setAdminGroups] = useState([])
+
+    useEffect(() => {
+        fetch('/my_admin_groups')
+        .then(res => res.json())
+        .then(data =>{
+            setAdminGroups(data)
+        })
+      }, [])
+
+      console.log(adminGroups)
 
     const handleFormChange = (e) => {
         console.log(e.target.id)
     }
+
+    const groupOptions = adminGroups.map(group => <option value={group.name} key={group.id}>{group.name}</option>)
 
     return(
         <Modal show={showAdd} onHide={handleClose}>
@@ -56,9 +69,7 @@ function AddEventForm({showAdd, handleClose}){
                     />
                     <Form.Select id="group" aria-label="Select Group" style={{marginTop: 5}}>
                         <option>Select Group</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
+                        {groupOptions}
                     </Form.Select>
             </Form.Group>
             <Modal.Footer>
