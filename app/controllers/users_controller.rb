@@ -59,6 +59,10 @@ class UsersController < ApplicationController
         render json: current_user, serializer: UserGroupEventListSerializer, status: :ok
     end
 
+    def all_groups
+        render json: current_user, serializer: AllUserGroupSerializer, status: :ok
+    end
+
     private
 
     def user_params

@@ -24,6 +24,7 @@ Rails.application.routes.draw do
   #user custom routes
   get '/my_admin_groups', to: 'users#admin_groups'
   get '/my_joined_groups', to: 'users#joined_groups'
+  get '/my_total_groups', to: 'users#all_groups'
   get '/my_messages', to: 'users#my_messages'
   get '/my_personal_events', to: 'users#personal_events'
   get '/my_group_events', to: 'users#group_events'
