@@ -12,6 +12,12 @@ apex = Group.create(name: "Apex Legends", group_picture: "https://www.nicepng.co
 league = Group.create(name: "League of Legends", group_picture: "https://www.nicepng.com/png/detail/246-2469081_jake-adventure-time-and-jake-the-dog-image.png")
 vball = Group.create(name: "Volleyball League", group_picture: "https://www.nicepng.com/png/detail/246-2469081_jake-adventure-time-and-jake-the-dog-image.png")
 wow = Group.create(name: "World of Warcraft", group_picture: "https://www.nicepng.com/png/detail/246-2469081_jake-adventure-time-and-jake-the-dog-image.png")
+wow2 = Group.create(name: "wow2", group_picture: "https://www.nicepng.com/png/detail/246-2469081_jake-adventure-time-and-jake-the-dog-image.png")
+wow3 = Group.create(name: "wow3", group_picture: "https://www.nicepng.com/png/detail/246-2469081_jake-adventure-time-and-jake-the-dog-image.png")
+wow4 = Group.create(name: "wow4", group_picture: "https://www.nicepng.com/png/detail/246-2469081_jake-adventure-time-and-jake-the-dog-image.png")
+wow5 = Group.create(name: "wow5", group_picture: "https://www.nicepng.com/png/detail/246-2469081_jake-adventure-time-and-jake-the-dog-image.png")
+wow6 = Group.create(name: "wow6", group_picture: "https://www.nicepng.com/png/detail/246-2469081_jake-adventure-time-and-jake-the-dog-image.png")
+wow7 = Group.create(name: "wow7", group_picture: "https://www.nicepng.com/png/detail/246-2469081_jake-adventure-time-and-jake-the-dog-image.png")
 
 
 puts 'Creating admins...'
@@ -27,6 +33,13 @@ JoinedGroup.create(user_id: mike.id, group_id: vball.id)
 JoinedGroup.create(user_id: hisham.id, group_id: apex.id)
 JoinedGroup.create(user_id: joe.id, group_id: wow.id)
 JoinedGroup.create(user_id: mike.id, group_id: wow.id)
+JoinedGroup.create(user_id: mike.id, group_id: wow2.id)
+JoinedGroup.create(user_id: mike.id, group_id: wow3.id)
+JoinedGroup.create(user_id: mike.id, group_id: wow4.id)
+JoinedGroup.create(user_id: mike.id, group_id: wow5.id)
+JoinedGroup.create(user_id: mike.id, group_id: wow6.id)
+JoinedGroup.create(user_id: mike.id, group_id: wow7.id)
+
 
 puts 'Creating messages...'
 Message.create(user_id: mitch.id, group_id: apex.id, message: "Fun game")

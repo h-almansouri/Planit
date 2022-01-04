@@ -22,9 +22,12 @@ class Wheel extends React.Component {
         }
         let temp_cards = [];
 
+        const servers = this.props.array
+        console.log(servers)
+
         for (let i = 0; i < 8; i++) {
             temp_cards.push(
-                <Card radius={this.state.radius} radian_interval={(Math.PI / 4) * i} center={center_of_wheel} key={`card_${i}`} />
+                <Card radius={this.state.radius} radian_interval={(Math.PI / 4) * i} center={center_of_wheel} key={`card_${i}`} server={servers[i]}/>
             );
         }
 
