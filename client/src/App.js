@@ -2,6 +2,7 @@ import './App.css';
 import { useState, useEffect } from 'react';
 import LoggedIn from './components/LoggedIn'
 import LoggedOut from './components/LoggedOut'
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 function App() {
