@@ -109,6 +109,8 @@ function DisplayCalendar({currentUser}){
         };
     }
 
+    console.log(groupEvents)
+
     
         return(
             <div>
@@ -141,7 +143,7 @@ function DisplayCalendar({currentUser}){
                 onSelectEvent={handleSelected}
                 eventPropGetter={eventStyleGetter}
                 />
-                <AddEventForm showAdd={showAdd} setShowAdd={setShowAdd}/>
+                <AddEventForm showAdd={showAdd} setShowAdd={setShowAdd} currentUser={currentUser} setGroupEvents={setGroupEvents} setPersonalEvents={setPersonalEvents} groupEvents={groupEvents} personalEvents={personalEvents} allEvents={allEvents} setAllEvents={setAllEvents}/>
             </div>
         )
 }

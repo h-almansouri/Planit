@@ -18,7 +18,7 @@ function HomePage({setCurrentUser, currentUser}){
         fetch('/logout', { method: 'DELETE' })
     }
 
-    const systems = allGroups.map(collection => <Wheel key={collection[0]} array={collection}/>)
+    const systems = allGroups.map(collection => <Wheel key={collection[0].name} array={collection}/>)
 
     return(
         <div className="home-div">
