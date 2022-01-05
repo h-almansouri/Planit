@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function get_coords(radian_interval, radius) {
     return {
@@ -9,11 +10,16 @@ function get_coords(radian_interval, radius) {
 
 function Card(props) {
     let coord = get_coords(props.radian_interval, props.radius);
-    
+    let history = useNavigate();
+
+    function handleClick () {
+        props.setGroupId(props.server.id)
+        history("/group")
+    }
+
     if(props.server) {
-        console.log(props.server.group_picture)
         return (
-            <div style={{ ...styles.card, left: `${props.center.x + coord.x}px`, top: `${props.center.y - coord.y}px` }}>
+            <div style={{ ...styles.card, left: `${props.center.x + coord.x}px`, top: `${props.center.y - coord.y}px` }} onClick={handleClick}>
                 <img alt="ok" src={props.server.group_picture} style={{ width: '100%', height: '100%' }} />
             </div>
         )

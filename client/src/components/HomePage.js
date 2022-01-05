@@ -1,7 +1,7 @@
 import {useState, useEffect} from 'react'
 import Wheel from './Wheel'
 
-function HomePage({setCurrentUser, currentUser}){
+function HomePage({setCurrentUser, currentUser, setGroupId}){
 
     const [allGroups, setAllGroups] = useState([])
 
@@ -18,8 +18,8 @@ function HomePage({setCurrentUser, currentUser}){
         fetch('/logout', { method: 'DELETE' })
     }
 
-    const systems = allGroups.map(collection => <Wheel key={collection[0].name} array={collection}/>)
-
+    const systems = allGroups.map(collection => <Wheel key={collection[0].name} array={collection} setGroupId={setGroupId}/>)
+    
     return(
         <div className="home-div">
             <div className="home-nav">
@@ -27,7 +27,7 @@ function HomePage({setCurrentUser, currentUser}){
                 <button onClick={handleLogout}>Logout</button>
             </div>
             <div className="home-prof">
-                <span className="prof-pic">Prof Pic</span>
+                <image className="prof-pic" src={currentUser.profile_picture}></image>
                 <h2>Welcome {currentUser.username}!</h2>
             </div>
             <div className="wheel-container">
