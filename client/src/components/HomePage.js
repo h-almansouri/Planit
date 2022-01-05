@@ -24,16 +24,14 @@ function HomePage({setCurrentUser, currentUser}){
         <div className="home-div">
             <div className="home-nav">
                 <a href='/calendar'>Calender</a>
-                <button>Logout</button>
+                <button onClick={handleLogout}>Logout</button>
             </div>
             <div className="home-prof">
                 <span className="prof-pic">Prof Pic</span>
                 <h2>Welcome {currentUser.username}!</h2>
             </div>
-            <div>
-              homepage
-              <button onClick={handleLogout}>logout</button>
-              {systems}
+            <div className="wheel-container">
+             {systems}
             </div>
       </div>
     )
