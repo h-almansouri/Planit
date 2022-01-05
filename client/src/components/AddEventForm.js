@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button'
 import { useState, useEffect} from 'react'
 import TimePicker from 'react-bootstrap-time-picker';
 
-function AddEventForm({showAdd, setShowAdd, currentUser, handleNewEventSubmit}){
+function AddEventForm({showAdd, setShowAdd, currentUser, handleNewEventSubmit, adminGroups}){
 
     const [formData, setFormData] = useState({
         user_id: currentUser.id,
@@ -16,19 +16,10 @@ function AddEventForm({showAdd, setShowAdd, currentUser, handleNewEventSubmit}){
         all_day: false,
         color: 'blue'
     })
-    const [adminGroups, setAdminGroups] = useState([])
     const [multiDay, setMultiDay] = useState(false)
     const [startTime, setStartTime] = useState('')
     const [endTime, setEndTime] = useState('')
     const [isGroup, setIsGroup] = useState(false)
-
-    useEffect(() => {
-        fetch('/my_admin_groups')
-        .then(res => res.json())
-        .then(data =>{
-            setAdminGroups(data)
-        })
-      }, [])
 
       const handleClose = () => {
         setShowAdd(false);
@@ -173,6 +164,7 @@ function AddEventForm({showAdd, setShowAdd, currentUser, handleNewEventSubmit}){
             })
         }
     }
+
 
     const groupOptions = adminGroups.map(group => <option value={group.id} key={group.id}>{group.name}</option>)
 

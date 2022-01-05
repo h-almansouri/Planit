@@ -9,7 +9,8 @@ class AllEventsSerializer < ActiveModel::Serializer
 
       all_events = {
         group: group_events,
-        personal: object.personal_events
+        personal: object.personal_events,
+        admins: object.group_admins
       }
       all_events
   end
