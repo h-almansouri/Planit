@@ -6,9 +6,16 @@ import TimePicker from 'react-bootstrap-time-picker';
 
 function AddEventForm({showAdd, setShowAdd}){
 
-    const [formData, setFormData] = useState({})
+    const [formData, setFormData] = useState({
+        title: '',
+        start: '',
+        end: '',
+        desc: '',
+        allDay: false,
+        color: 'blue'
+    })
     const [adminGroups, setAdminGroups] = useState([])
-    const [allDay, setAllDay] = useState(false)
+    // const [allDay, setAllDay] = useState(false)
     const [multiDay, setMultiDay] = useState(false)
     const [startTime, setStartTime] = useState('')
     const [endTime, setEndTime] = useState('')
@@ -24,7 +31,7 @@ function AddEventForm({showAdd, setShowAdd}){
 
       const handleClose = () => {
         setShowAdd(false);
-        setAllDay(false);
+        // setAllDay(false);
         setMultiDay(false);
         setIsGroup(false)
       }
@@ -33,17 +40,38 @@ function AddEventForm({showAdd, setShowAdd}){
 
     const handleFormChange = (e) => {
         console.log(e.target.id)
+
+        if(e.target.id === "allDay"){
+            setFormData({
+                ...formData,
+                allDay: !formData.allDay
+            })
+        }else if(e.target.id === "multiDay"){
+            setMultiDay(!multiDay)
+        }else{
+            setFormData({
+                ...formData,
+                [e.target.id]: e.target.value
+            })
+        }
     }
+
+    console.log(formData)
 
     const groupOptions = adminGroups.map(group => <option value={group.name} key={group.id}>{group.name}</option>)
 
-    const handleAllDay = () => {
-        setAllDay(!allDay)
-    }
+    // const handleAllDay = (e) => {
+    //     setAllDay(!allDay)
+    //     setFormData({
+    //         ...formData,
+    //         allDay: !allDay
+    //     })
+    //     console.log(e.target.value)
+    // }
 
-    const handleMultiDay = () => {
-        setMultiDay(!multiDay)
-    }
+    // const handleMultiDay = () => {
+    //     setMultiDay(!multiDay)
+    // }
 
     const handleStartTime = (e) => {
         console.log(e)
@@ -68,7 +96,7 @@ function AddEventForm({showAdd, setShowAdd}){
 
     let eventLength
 
-    if(allDay){
+    if(formData.allDay){
         eventLength = null
     }else if(multiDay){
         eventLength = <>
@@ -91,6 +119,16 @@ function AddEventForm({showAdd, setShowAdd}){
             <Modal.Header closeButton>
                 <Modal.Title>New Event</Modal.Title>
             </Modal.Header>
+            <Form.Label htmlFor="inputPassword5">Password</Form.Label>
+            <Form.Control
+                type="password"
+                id="inputPassword5"
+                aria-describedby="passwordHelpBlock"
+            />
+            <Form.Text id="passwordHelpBlock" muted>
+                Your password must be 8-20 characters long, contain letters and numbers, and
+                must not contain spaces, special characters, or emoji.
+            </Form.Text>
             <Form.Group style={{padding: 10}} onChange={(e) => handleFormChange(e)}>
                     <Form.Label style={{marginLeft: 10, marginTop: 5}}>{multiDay ? "Stary Date:" : "Date:"}</Form.Label>
                     <Form.Control id="start" type="date" name="start" placeholder="Start Date" />
@@ -98,9 +136,8 @@ function AddEventForm({showAdd, setShowAdd}){
                     <Form.Check
                     inline
                     type="switch"
-                    id="allDay"
+                    id="allDayDis"
                     label="All Day"
-                    onChange={() => handleAllDay()}
                     disabled
                     />
                     :
@@ -109,15 +146,15 @@ function AddEventForm({showAdd, setShowAdd}){
                     type="switch"
                     id="allDay"
                     label="All Day"
-                    onChange={() => handleAllDay()}
+                    // onChange={(e) => handleAllDay(e)}
+                    // value={formData.allDay}
                     />}
-                    {allDay ?
+                    {formData.allDay ?
                     <Form.Check
                     inline
                     type="switch"
-                    id="multiDay"
+                    id="multiDayDis"
                     label="Multiple Days"
-                    onChange={() => handleMultiDay()}
                     disabled
                     />
                     :
@@ -126,7 +163,7 @@ function AddEventForm({showAdd, setShowAdd}){
                     type="switch"
                     id="multiDay"
                     label="Multiple Days"
-                    onChange={() => handleMultiDay()}
+                    // onChange={(e) => handleMultiDay(e)}
                     />}
                     <br/>
                     {eventLength}
