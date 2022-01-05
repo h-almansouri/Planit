@@ -11,6 +11,7 @@ import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import Fab from '@mui/material/Fab';
 import AddEventForm from './AddEventForm';
+import EventDetails from './EventDetails'
 
 const localizer = momentLocalizer(moment)
 
@@ -23,6 +24,7 @@ function DisplayCalendar({currentUser}){
     const [filterToggle, setFilterToggle] = useState("All")
     const [selectedEvents, setSelectedEvents] = useState([])
     const [showAdd, setShowAdd] = useState(false);
+    const [showDetails, setShowDetails] = useState(false);
 
     useEffect(() => {
         fetch('/all_events')
@@ -53,9 +55,10 @@ function DisplayCalendar({currentUser}){
     const handleSelected = (event) => {
         setSelected(event);
         console.log(event);
+        setShowDetails(true)
     }
 
-    const handleShow = () => setShowAdd(true);
+    const handleShowAdd = () => setShowAdd(true);
     
     // const myEventsList = [ {
     //     id: 1,
@@ -109,6 +112,52 @@ function DisplayCalendar({currentUser}){
         };
     }
 
+    const handleNewEventSubmit= (formData) => {
+  
+        const configObj = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formData)
+        }
+
+
+        if(formData.group_id){
+            fetch('/group_events', configObj).then((resp) =>{ 
+                if (resp.ok) {
+                    resp.json().then((data) => {
+                    setGroupEvents([...groupEvents, data])
+                    setAllEvents([...allEvents, data])
+                    if(filterToggle === 'All' || filterToggle === 'Group'){
+                        setSelectedEvents([...selectedEvents, data])
+                    }
+                    })
+                } else {
+                    resp.json().then((errors) => {
+                        alert(errors.errors);
+                    })
+                }
+            })
+        }else{
+            fetch('/personal_events', configObj).then((resp) =>{ 
+                if (resp.ok) {
+                    resp.json().then((data) => {
+                    setPersonalEvents([...personalEvents, data])
+                    setAllEvents([...allEvents, data])
+                    if(filterToggle === 'All' || filterToggle === 'Personal'){
+                        setSelectedEvents([...selectedEvents, data])
+                    }
+                    })
+                } else {
+                    resp.json().then((errors) => {
+                        alert(errors.errors);
+                    })
+                }
+            })
+        }
+    }
+
     
         return(
             <div>
@@ -119,7 +168,7 @@ function DisplayCalendar({currentUser}){
                     </Fab>
                 </Link>
                 <Stack direction="row" spacing={5} alignItems="center" justifyContent="center">
-                    <Button variant="contained" color="success" onClick={handleShow}>
+                    <Button variant="contained" color="success" onClick={handleShowAdd}>
                         New Event
                     </Button>
                     <ToggleButtonGroup color="primary" value={filterToggle} exclusive onChange={(e) => handleFilterToggle(e)}>
@@ -141,7 +190,8 @@ function DisplayCalendar({currentUser}){
                 onSelectEvent={handleSelected}
                 eventPropGetter={eventStyleGetter}
                 />
-                <AddEventForm showAdd={showAdd} setShowAdd={setShowAdd}/>
+                <AddEventForm showAdd={showAdd} setShowAdd={setShowAdd} currentUser={currentUser} handleNewEventSubmit={handleNewEventSubmit}/>
+                <EventDetails show={showDetails} setShow={setShowDetails}/>
             </div>
         )
 }

@@ -4,18 +4,19 @@ import Button from 'react-bootstrap/Button'
 import { useState, useEffect} from 'react'
 import TimePicker from 'react-bootstrap-time-picker';
 
-function AddEventForm({showAdd, setShowAdd}){
+function AddEventForm({showAdd, setShowAdd, currentUser, handleNewEventSubmit}){
 
     const [formData, setFormData] = useState({
+        user_id: currentUser.id,
+        group_id: null,
         title: '',
         start: '',
         end: '',
         desc: '',
-        allDay: false,
+        all_day: false,
         color: 'blue'
     })
     const [adminGroups, setAdminGroups] = useState([])
-    // const [allDay, setAllDay] = useState(false)
     const [multiDay, setMultiDay] = useState(false)
     const [startTime, setStartTime] = useState('')
     const [endTime, setEndTime] = useState('')
@@ -31,23 +32,140 @@ function AddEventForm({showAdd, setShowAdd}){
 
       const handleClose = () => {
         setShowAdd(false);
-        // setAllDay(false);
         setMultiDay(false);
         setIsGroup(false)
+        setStartTime(0)
+        setEndTime(0)
+        setFormData({
+            user_id: currentUser.id,
+            group_id: null,
+            title: '',
+            start: '',
+            end: '',
+            desc: '',
+            all_day: false,
+            color: 'blue'
+        })
       }
 
-    //   console.log(adminGroups)
+      const handleSubmit = (e) => {
+        e.preventDefault()
+        handleNewEventSubmit(formData)
+    
+        setShowAdd(false);
+        setMultiDay(false);
+        setIsGroup(false)
+        setStartTime(0)
+        setEndTime(0)
+        setFormData({
+            user_id: currentUser.id,
+            group_id: null,
+            title: '',
+            start: '',
+            end: '',
+            desc: '',
+            all_day: false,
+            color: 'blue'
+        })
+      }
+
 
     const handleFormChange = (e) => {
-        console.log(e.target.id)
 
         if(e.target.id === "allDay"){
             setFormData({
                 ...formData,
-                allDay: !formData.allDay
+                all_day: !formData.all_day
             })
         }else if(e.target.id === "multiDay"){
             setMultiDay(!multiDay)
+            setStartTime(0)
+            setEndTime(0)
+        }else if(e.target.id === "start"){
+            const startDay = new Date(e.target.value)
+            startDay.setHours(0)
+            const endDay = new Date(e.target.value)
+            endDay.setHours(0)
+            startDay.setDate(startDay.getDate() + 1)
+            endDay.setDate(endDay.getDate() + 1)
+            setFormData({
+                ...formData,
+                start: startDay,
+                end: endDay
+            })
+        }else if(e.target.id === "end"){
+            const endDay = new Date(e.target.value)
+            endDay.setDate(endDay.getDate() + 1)
+            setFormData({
+                ...formData,
+                end: endDay
+            })
+        }else if(e.target.id === "start_time"){
+            const inputTime = parseInt(e.target.value, 10)
+            const currentDay = formData.start
+            const endDay = formData.end
+            const timeInHours = (inputTime / 60 / 60)
+            if(timeInHours % 1 === 0.5){
+                currentDay.setHours(timeInHours, 30)
+                setFormData({
+                    ...formData,
+                    start: currentDay
+                })
+                if(inputTime > endTime){
+                    endDay.setHours(timeInHours, 30)
+                    setFormData({
+                        ...formData,
+                        end: endDay
+                    })
+                }
+            }else{
+                currentDay.setHours(timeInHours, 0)
+                setFormData({
+                    ...formData,
+                    start: currentDay
+                })
+                if(inputTime > endTime){
+                    endDay.setHours(timeInHours, 0)
+                    setFormData({
+                        ...formData,
+                        end: endDay
+                    })
+                }
+            }
+        }else if(e.target.id === "end_time"){
+            let inputTime = parseInt(e.target.value, 10)
+            if (inputTime < startTime){
+                inputTime = startTime
+            }
+            const startRef = formData.start.getTime()
+            const currentDay = new Date(startRef)
+            const timeInHours = (inputTime / 60 / 60)
+            if(timeInHours % 1 === 0.5){
+                currentDay.setHours(timeInHours, 30)
+                setFormData({
+                    ...formData,
+                    end: currentDay
+                })
+            }else{
+                currentDay.setHours(timeInHours, 0)
+                setFormData({
+                    ...formData,
+                    end: currentDay
+                })
+        }
+        }else if(e.target.id === 'personalEvent'){
+            setIsGroup(!isGroup)
+            setFormData({
+                ...formData,
+                group_id: null
+            })
+        }else if(e.target.id === 'groupEvent'){
+            setIsGroup(!isGroup)
+        }else if(e.target.id === 'group'){
+            setFormData({
+                ...formData,
+                group_id: parseInt(e.target.value, 10)
+            })
         }else{
             setFormData({
                 ...formData,
@@ -56,25 +174,9 @@ function AddEventForm({showAdd, setShowAdd}){
         }
     }
 
-    console.log(formData)
-
-    const groupOptions = adminGroups.map(group => <option value={group.name} key={group.id}>{group.name}</option>)
-
-    // const handleAllDay = (e) => {
-    //     setAllDay(!allDay)
-    //     setFormData({
-    //         ...formData,
-    //         allDay: !allDay
-    //     })
-    //     console.log(e.target.value)
-    // }
-
-    // const handleMultiDay = () => {
-    //     setMultiDay(!multiDay)
-    // }
+    const groupOptions = adminGroups.map(group => <option value={group.id} key={group.id}>{group.name}</option>)
 
     const handleStartTime = (e) => {
-        console.log(e)
         setStartTime(e)
         if (e > endTime){
             setEndTime(e)
@@ -82,7 +184,6 @@ function AddEventForm({showAdd, setShowAdd}){
     }
 
     const handleEndTime = (e) => {
-        console.log(e)
         if (e > startTime){
             setEndTime(e)
         }else{
@@ -90,20 +191,16 @@ function AddEventForm({showAdd, setShowAdd}){
         }
     }
 
-    const handleRadio = (e) => {
-        setIsGroup(!isGroup)
-    }
-
     let eventLength
 
-    if(formData.allDay){
+    if(formData.all_day){
         eventLength = null
     }else if(multiDay){
         eventLength = <>
         <Form.Label style={{ marginLeft: 10, marginTop: 5 }}>End Date:</Form.Label>
         <Form.Control id="end" type="date" name="end" placeholder="End Date" />
         </>
-    }else{
+    }else if(formData.start !== ''){
         eventLength = 
         <>
         <Form.Label style={{ marginLeft: 10, marginTop: 5 }}>Start:</Form.Label>
@@ -119,19 +216,29 @@ function AddEventForm({showAdd, setShowAdd}){
             <Modal.Header closeButton>
                 <Modal.Title>New Event</Modal.Title>
             </Modal.Header>
-            <Form.Label htmlFor="inputPassword5">Password</Form.Label>
-            <Form.Control
-                type="password"
-                id="inputPassword5"
-                aria-describedby="passwordHelpBlock"
-            />
-            <Form.Text id="passwordHelpBlock" muted>
-                Your password must be 8-20 characters long, contain letters and numbers, and
-                must not contain spaces, special characters, or emoji.
-            </Form.Text>
-            <Form.Group style={{padding: 10}} onChange={(e) => handleFormChange(e)}>
+            <Form onSubmit={(e) => handleSubmit(e)}>
+            <Form.Group style={{padding: 10}} onChange={handleFormChange}>
+                    <Form.Label htmlFor="title" style={{marginTop: 5, marginLeft: 10}}>Event Title:</Form.Label>
+                    <Form.Control
+                        type="text"
+                        id="title"
+                        aria-describedby="titleBlock"
+                        value={formData.title}
+                        onChange={handleFormChange}
+                    />
+                    <Form.Label htmlFor="desc" style={{marginTop: 5, marginLeft: 10}}>Description:</Form.Label>
+                    <Form.Text id="optionalDesc" muted style={{marginLeft: 5}}>
+                        (optional)
+                    </Form.Text>
+                    <Form.Control
+                        type="text"
+                        id="desc"
+                        aria-describedby="descriptionBlock"
+                        value={formData.desc}
+                        onChange={handleFormChange}
+                    />
                     <Form.Label style={{marginLeft: 10, marginTop: 5}}>{multiDay ? "Stary Date:" : "Date:"}</Form.Label>
-                    <Form.Control id="start" type="date" name="start" placeholder="Start Date" />
+                    <Form.Control id="start" type="date" name="start" placeholder="Start Date"/>
                     {multiDay ?
                     <Form.Check
                     inline
@@ -149,7 +256,7 @@ function AddEventForm({showAdd, setShowAdd}){
                     // onChange={(e) => handleAllDay(e)}
                     // value={formData.allDay}
                     />}
-                    {formData.allDay ?
+                    {formData.all_day ?
                     <Form.Check
                     inline
                     type="switch"
@@ -173,7 +280,7 @@ function AddEventForm({showAdd, setShowAdd}){
                         name="type"
                         type="radio"
                         id='personalEvent'
-                        onChange={handleRadio}
+                        // onChange={handleRadio}
                         defaultChecked
                     />
                     <Form.Check
@@ -182,21 +289,23 @@ function AddEventForm({showAdd, setShowAdd}){
                         name="type"
                         type="radio"
                         id='groupEvent'
-                        onChange={handleRadio}
+                        // onChange={handleRadio}
                     />
                     {isGroup ? <Form.Select id="group" aria-label="Select Group" style={{marginTop: 5}}>
                         <option>Select Group</option>
                         {groupOptions}
                     </Form.Select> : null}
-            </Form.Group>
+            
             <Modal.Footer>
                 <Button variant="secondary" onClick={handleClose}>
                 Close
                 </Button>
-                <Button variant="primary" onClick={handleClose}>
-                Save Changes
+                <Button variant="success" type="submit">
+                Add
                 </Button>
             </Modal.Footer>
+            </Form.Group>
+            </Form>
         </Modal>
     )
 }

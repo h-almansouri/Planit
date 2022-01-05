@@ -19,7 +19,7 @@ function HomePage({setCurrentUser, currentUser, setGroupId}){
     }
 
     const systems = allGroups.map(collection => <Wheel key={collection[0].name} array={collection} setGroupId={setGroupId}/>)
-
+    
     return(
         <div className="home-div">
             <div className="home-nav">

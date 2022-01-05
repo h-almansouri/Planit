@@ -3,12 +3,13 @@ Rails.application.routes.draw do
   # resources :admin_groups
   # resources :joined_groups
   # resources :messages
-  # resources :group_events
-  # resources :personal_events
+  
 
   #basic RESTful routes
   resources :groups
   resources :users, only: [:index, :destroy, :update]
+  resources :group_events, only: [:create]
+  resources :personal_events, only: [:create]
 
 
   #user session handling routes
