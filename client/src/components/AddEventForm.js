@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button'
 import { useState, useEffect} from 'react'
 import TimePicker from 'react-bootstrap-time-picker';
 
-function AddEventForm({showAdd, setShowAdd, currentUser, setGroupEvents, setPersonalEvents, groupEvents, personalEvents, allEvents, setAllEvents}){
+function AddEventForm({showAdd, setShowAdd, currentUser, handleNewEventSubmit}){
 
     const [formData, setFormData] = useState({
         user_id: currentUser.id,
@@ -34,6 +34,8 @@ function AddEventForm({showAdd, setShowAdd, currentUser, setGroupEvents, setPers
         setShowAdd(false);
         setMultiDay(false);
         setIsGroup(false)
+        setStartTime(0)
+        setEndTime(0)
         setFormData({
             user_id: currentUser.id,
             group_id: null,
@@ -48,52 +50,13 @@ function AddEventForm({showAdd, setShowAdd, currentUser, setGroupEvents, setPers
 
       const handleSubmit = (e) => {
         e.preventDefault()
-        console.log(formData)
-        
-        const configObj = {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(formData)
-        }
-
-
-        if(formData.group_id){
-            fetch('/group_events', configObj).then((resp) =>{ 
-                if (resp.ok) {
-                    resp.json().then((data) => {
-                    console.log(data)
-                    setGroupEvents([...groupEvents, data])
-                    setAllEvents([...allEvents, data])
-                    })
-                } else {
-                    resp.json().then((errors) => {
-                        alert(errors.errors);
-                    })
-                }
-            })
-        }else{
-            fetch('/personal_events', configObj).then((resp) =>{ 
-                if (resp.ok) {
-                    resp.json().then((data) => {
-                    console.log(data)
-                    setPersonalEvents([...personalEvents, data])
-                    setAllEvents([...allEvents, data])
-                    })
-                } else {
-                    resp.json().then((errors) => {
-                        alert(errors.errors);
-                    })
-                }
-            })
-        }
-
-        
-
+        handleNewEventSubmit(formData)
+    
         setShowAdd(false);
         setMultiDay(false);
         setIsGroup(false)
+        setStartTime(0)
+        setEndTime(0)
         setFormData({
             user_id: currentUser.id,
             group_id: null,
