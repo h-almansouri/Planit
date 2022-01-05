@@ -55,7 +55,6 @@ function DisplayCalendar({currentUser}){
         console.log(event);
     }
 
-    const handleClose = () => setShowAdd(false);
     const handleShow = () => setShowAdd(true);
     
     // const myEventsList = [ {
@@ -121,7 +120,7 @@ function DisplayCalendar({currentUser}){
                 </Link>
                 <Stack direction="row" spacing={5} alignItems="center" justifyContent="center">
                     <Button variant="contained" color="success" onClick={handleShow}>
-                        Add New Event
+                        New Event
                     </Button>
                     <ToggleButtonGroup color="primary" value={filterToggle} exclusive onChange={(e) => handleFilterToggle(e)}>
                         <ToggleButton value="All">All</ToggleButton>
@@ -142,7 +141,7 @@ function DisplayCalendar({currentUser}){
                 onSelectEvent={handleSelected}
                 eventPropGetter={eventStyleGetter}
                 />
-                <AddEventForm showAdd={showAdd} handleClose={handleClose}/>
+                <AddEventForm showAdd={showAdd} setShowAdd={setShowAdd}/>
             </div>
         )
 }
