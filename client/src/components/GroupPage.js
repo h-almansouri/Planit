@@ -7,7 +7,10 @@ function GroupPage ({groupId}) {
     useEffect(() => {
         fetch(`/groups/${groupId}`)
             .then(res => res.json())
-            .then(data => setGroupData(data))
+            .then(data =>{
+                 setGroupData(data)
+                 console.log(data)
+            })
     }, [])
     const [value, setValue] = useState();
 

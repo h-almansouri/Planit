@@ -17,7 +17,7 @@ const localizer = momentLocalizer(moment)
 
 function DisplayCalendar({currentUser}){
 
-    const [selected, setSelected] = useState();
+    const [selected, setSelected] = useState(null);
     const [allEvents, setAllEvents] = useState([]);
     const [personalEvents, setPersonalEvents] = useState([]);
     const [groupEvents, setGroupEvents] = useState([]);
@@ -25,6 +25,8 @@ function DisplayCalendar({currentUser}){
     const [selectedEvents, setSelectedEvents] = useState([])
     const [showAdd, setShowAdd] = useState(false);
     const [showDetails, setShowDetails] = useState(false);
+    const [adminGroups, setAdminGroups] = useState([])
+
 
     useEffect(() => {
         fetch('/all_events')
@@ -37,6 +39,7 @@ function DisplayCalendar({currentUser}){
             setPersonalEvents(personal)
             setAllEvents(all)
             setSelectedEvents(all)
+            setAdminGroups(data.all_events.admins)
         })
       }, [])
 
@@ -54,7 +57,6 @@ function DisplayCalendar({currentUser}){
 
     const handleSelected = (event) => {
         setSelected(event);
-        console.log(event);
         setShowDetails(true)
     }
 
@@ -158,6 +160,10 @@ function DisplayCalendar({currentUser}){
         }
     }
 
+    const handleEditSubmit = (data) => {
+        console.log(data)
+    }
+
     
         return(
             <div>
@@ -190,8 +196,8 @@ function DisplayCalendar({currentUser}){
                 onSelectEvent={handleSelected}
                 eventPropGetter={eventStyleGetter}
                 />
-                <AddEventForm showAdd={showAdd} setShowAdd={setShowAdd} currentUser={currentUser} handleNewEventSubmit={handleNewEventSubmit}/>
-                <EventDetails show={showDetails} setShow={setShowDetails}/>
+                <AddEventForm showAdd={showAdd} setShowAdd={setShowAdd} currentUser={currentUser} handleNewEventSubmit={handleNewEventSubmit} adminGroups={adminGroups}/>
+                {selected ? <EventDetails show={showDetails} setShow={setShowDetails} event={selected} handleEditSubmit={handleEditSubmit} currentUser={currentUser}/> : null}
             </div>
         )
 }
