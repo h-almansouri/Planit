@@ -58,3 +58,15 @@ code {
   justify-content: space-around;
   flex-direction: column;
 }
+.group-prof-pic {
+  height: 30px;
+  width: 30px;
+}
+.group-prof{
+  margin-left: 90%;
+  height: 50px;
+  width: 100px;
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+}
