@@ -7,7 +7,7 @@ Rails.application.routes.draw do
 
   #basic RESTful routes
   resources :groups
-  resources :users, only: [:index, :destroy, :update]
+  resources :users, only: [:show, :destroy, :update]
   resources :group_events, only: [:create]
   resources :personal_events, only: [:create]
 

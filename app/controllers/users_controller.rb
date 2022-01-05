@@ -13,6 +13,11 @@ class UsersController < ApplicationController
         render json: new_user, status: :created
     end
 
+    def show
+        user = User.find(params[:id])
+        render json: user, serializer: UserGroupsSerializer, status: :ok
+    end
+
     def update
         if @user == current_user
             @user.update!(user_params)
