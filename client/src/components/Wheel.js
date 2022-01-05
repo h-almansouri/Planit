@@ -63,9 +63,9 @@ const styles = {
     wheel: {
         margin: '0',
         padding: '0',
-        position: 'absolute',
         top: '50%',
         left: '50%',
+        position: 'relative',
         transform: 'translate(-50%, -50%)',
         height: '100px',
         width: '100px',
