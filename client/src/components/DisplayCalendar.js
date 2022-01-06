@@ -62,33 +62,6 @@ function DisplayCalendar({currentUser}){
 
     const handleShowAdd = () => setShowAdd(true);
     
-    // const myEventsList = [ {
-    //     id: 1,
-    //     title: "Christmas",
-    //     start: new Date(2021, 11, 25, 10),
-    //     end: new Date(2021, 11, 25, 12),
-    //     desc: "Christmas day, 2021",
-    //     allDay: true,
-    //     color: "#357a2c",
-    //     outlineColor: "#fa02dd"
-    //   },
-    //   {
-    //     id: 2,
-    //     title: "Break",
-    //     start: new Date(2021, 11, 23, 9),
-    //     end: new Date(2021, 11, 25, 11),
-    //     desc: "Holiday break"
-    //   },
-    //   {
-    //     id: 3,
-    //     title: "Packers vs Browns",
-    //     start: new Date(2021, 11, 25, 15, 25),
-    //     end: new Date(2021, 11, 25, 19),
-    //     desc: "NFL game",
-    //     color: 'pink'
-    //   }
-    // ]
-
     const showEvents = selectedEvents.map(e => {
         return({
             ...e,
@@ -160,8 +133,56 @@ function DisplayCalendar({currentUser}){
         }
     }
 
-    const handleEditSubmit = (data) => {
-        console.log(data)
+    const handleEditSubmit = (event, data) => {
+        const configObj = {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data)
+        }
+
+        if(data.group_id){
+            fetch(`/group_events/${event.id}`, configObj).then(res => {
+                if(res.ok){
+                    res.json().then((data) => {
+                        const newGroupEvents = groupEvents.map(event => event.id === data.id ? data : event);
+                        const newAllEvents = allEvents.map(event => event.group_id && event.id === data.id ? data : event);
+                        setGroupEvents(newGroupEvents)
+                        setAllEvents(newAllEvents)
+                        if(filterToggle === 'All'){
+                            setSelectedEvents(newAllEvents);
+                        }else if(filterToggle === 'Group'){
+                            setSelectedEvents(newGroupEvents);
+                        }
+                    })
+                }else{
+                    res.json().then((errors) => {
+                        alert(errors.errors);
+                    })
+                }
+            })
+        }else{
+            fetch(`/personal_events/${event.id}`, configObj).then(res => {
+                if(res.ok){
+                    res.json().then((data) => {
+                        const newPersonalEvents = personalEvents.map(event => event.id === data.id ? data : event);
+                        const newAllEvents = allEvents.map(event => !event.group_id && event.id === data.id ? data : event);
+                        setPersonalEvents(newPersonalEvents)
+                        setAllEvents(newAllEvents)
+                        if(filterToggle === 'All'){
+                            setSelectedEvents(newAllEvents);
+                        }else if(filterToggle === 'Personal'){
+                            setSelectedEvents(newPersonalEvents);
+                        }
+                    })
+                }else{
+                    res.json().then((errors) => {
+                        alert(errors.errors);
+                    })
+                }
+            })
+        }
     }
 
 
@@ -169,7 +190,7 @@ function DisplayCalendar({currentUser}){
         if(event.group_id){
             fetch(`/group_events/${event.id}`, { method: 'DELETE' }).then(res => {
                 if (res.ok) {
-                    const deletedAllArray = allEvents.filter(e => e.id !== event.id)
+                    const deletedAllArray = allEvents.filter(e => !e.group_id || e.id !== event.id)
                     const deletedGroupArray = groupEvents.filter(e => e.id !== event.id)
                     setGroupEvents(deletedGroupArray)
                     setAllEvents(deletedAllArray)
@@ -180,14 +201,14 @@ function DisplayCalendar({currentUser}){
                     }
                 } else {
                     res.json().then((errors) => {
-                        alert(errors.error);
+                        alert(errors.errors);
                     })
                 }
             })
         }else{
             fetch(`/personal_events/${event.id}`, { method: 'DELETE' }).then(res => {
                 if (res.ok) {
-                    const deletedAllArray = allEvents.filter(e => e.id !== event.id)
+                    const deletedAllArray = allEvents.filter(e => e.group_id || e.id !== event.id)
                     const deletedPersonalArray = personalEvents.filter(e => e.id !== event.id)
                     setPersonalEvents(deletedPersonalArray)
                     setAllEvents(deletedAllArray)
@@ -198,7 +219,7 @@ function DisplayCalendar({currentUser}){
                     }
                 } else {
                     res.json().then((errors) => {
-                        alert(errors.error);
+                        alert(errors.errors);
                     })
                 }
         })

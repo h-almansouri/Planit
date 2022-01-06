@@ -5,23 +5,23 @@ import { useState } from 'react'
 import TimePicker from 'react-bootstrap-time-picker';
 
 function EventDetails({show, setShow, event, handleEditSubmit, currentUser, handleDeleteEvent}){
-
     const [showEdit, setShowEdit] = useState(false)
     const [formData, setFormData] = useState({
-      user_id: currentUser.id,
-      group_id: null,
-      title: '',
-      start: '',
-      end: '',
-      desc: '',
-      all_day: false,
-      color: 'blue'
+        user_id: currentUser.id,
+        group_id: null,
+        title: '',
+        start: '',
+        end: '',
+        desc: '',
+        all_day: false,
+        color: 'blue'
   })
   const [multiDay, setMultiDay] = useState(false)
   const [startTime, setStartTime] = useState('')
   const [endTime, setEndTime] = useState('')
   const [isGroup, setIsGroup] = useState(false)
   const [showDelete, setShowDelete] = useState(false)
+  const [editDate, setEditDate] = useState(false)
 
     const handleEditClose = () => {
       setShowEdit(false);
@@ -29,6 +29,7 @@ function EventDetails({show, setShow, event, handleEditSubmit, currentUser, hand
       setIsGroup(false)
       setStartTime(0)
       setEndTime(0)
+      setEditDate(false)
       setFormData({
           user_id: currentUser.id,
           group_id: null,
@@ -43,13 +44,14 @@ function EventDetails({show, setShow, event, handleEditSubmit, currentUser, hand
 
     const handleSubmit = (e) => {
       e.preventDefault()
-      handleEditSubmit(formData)
+      handleEditSubmit(event, formData)
   
       setShowEdit(false);
       setMultiDay(false);
       setIsGroup(false)
       setStartTime(0)
       setEndTime(0)
+      setEditDate(false)
       setFormData({
           user_id: currentUser.id,
           group_id: null,
@@ -207,6 +209,17 @@ const handleEndTime = (e) => {
     const handleDeleteClose = () => setShowDelete(false)
 
     const handleEditClick = () => {
+        console.log(event)
+        setFormData({
+            user_id: currentUser.id,
+            group_id: event.group_id,
+            title: event.title,
+            start: event.start,
+            end: event.end,
+            desc: event.desc,
+            all_day: event.all_day,
+            color: event.color
+        })
         setShow(false)
         setShowEdit(true)
     }
@@ -219,6 +232,14 @@ const handleEndTime = (e) => {
     const handleDelete = () => {
       handleDeleteEvent(event)
       setShowDelete(false)
+    }
+
+    const handleEditDate = () => {
+        setFormData({
+            ...formData,
+            all_day: false
+        })
+        setEditDate(true)
     }
  
     return(
@@ -285,6 +306,9 @@ const handleEndTime = (e) => {
                         value={formData.desc}
                         onChange={handleFormChange}
                     />
+                    {editDate ? null : <Button style={{marginTop: 8}} onClick={() => handleEditDate()}>Edit Date(s)</Button>}
+                    <br/>
+                    {editDate ? <>
                     <Form.Label style={{marginLeft: 10, marginTop: 5}}>{multiDay ? "Stary Date:" : "Date:"}</Form.Label>
                     <Form.Control id="start" type="date" name="start" placeholder="Start Date"/>
                     {multiDay ?
@@ -322,6 +346,7 @@ const handleEndTime = (e) => {
                     />}
                     <br/>
                     {eventLength}
+                    </> : null}
             <Modal.Footer>
                 <Button variant="secondary" onClick={handleEditClose}>
                 Cancel

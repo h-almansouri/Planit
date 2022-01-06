@@ -1,7 +1,7 @@
 class GroupEventsController < ApplicationController
 
-    before_action :find_event, only: [:destroy]
-    before_action :is_authorized, only: [:destroy]
+    before_action :find_event, only: [:destroy, :update]
+    before_action :is_authorized, only: [:destroy, :update]
 
     def create
         new_event = GroupEvent.create!(event_params)
@@ -13,6 +13,11 @@ class GroupEventsController < ApplicationController
         head :no_content
     end
 
+    def update
+        @event.update!(event_params)
+        render json: @event, status: :accepted
+    end
+
 
     private
 
@@ -20,13 +25,13 @@ class GroupEventsController < ApplicationController
         params.permit(:title, :group_id, :start, :end, :all_day, :desc, :color)
     end
 
-    def is_authorized
-        permitted = @event.group.admin_users.include?(current_user)
-        render json: {error: "Access denied"}, status: :forbidden unless permitted
-    end
-
     def find_event
         @event = GroupEvent.find(params[:id])
+    end
+
+    def is_authorized
+        permitted = @event.group.admin_users.include?(current_user)
+        render json: {errors: "Access denied"}, status: :forbidden unless permitted
     end
 
 end
