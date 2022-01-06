@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
   
   # resources :admin_groups
-  # resources :joined_groups
   # resources :messages
   
 
@@ -10,6 +9,7 @@ Rails.application.routes.draw do
   resources :users, only: [:show, :destroy, :update]
   resources :group_events, only: [:create, :destroy, :update]
   resources :personal_events, only: [:create, :destroy, :update]
+  resources :joined_groups, only: [:create]
 
 
   #user session handling routes
@@ -31,6 +31,9 @@ Rails.application.routes.draw do
   get '/my_group_events', to: 'users#group_events'
   get '/all_events', to: 'users#all_events'
 
+
+  #group custom routes
+  get '/search_groups/:name', to: 'groups#search_groups'
   
 
 

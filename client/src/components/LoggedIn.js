@@ -12,7 +12,7 @@ function LoggedIn({ setCurrentUser, currentUser }){
         <Routes>
             <Route path='/' element={<HomePage setCurrentUser={setCurrentUser} currentUser={currentUser} setGroupId={setGroupId}/>} />
             <Route path='/calendar' element={<DisplayCalendar currentUser={currentUser}/>}/>
-            <Route path='/group' element={<GroupPage groupId={groupId}/>}/>
+            <Route path='/group' element={<GroupPage groupId={groupId} currentUser={currentUser}/>}/>
         </Routes>
     )
 }

@@ -8,4 +8,5 @@ class Group < ApplicationRecord
     has_many :message_users, through: :messages, source: :user
 
     validates :name, presence: true, uniqueness: true
+    validates :group_picture, url: true
 end

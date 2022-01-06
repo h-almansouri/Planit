@@ -1,9 +1,13 @@
 import {useState, useEffect} from 'react'
 import Wheel from './Wheel'
+import FindCreateGroup from './FindCreateGroup'
+// import CalendarTodayTwoTone from '@mui/icons-material'
+import {Link} from 'react-router-dom'
 
 function HomePage({setCurrentUser, currentUser, setGroupId}){
 
     const [allGroups, setAllGroups] = useState([])
+    const [groupModal, setGroupModal] = useState(false)
 
     useEffect(() => {
         fetch('/my_total_groups')
@@ -23,13 +27,17 @@ function HomePage({setCurrentUser, currentUser, setGroupId}){
     return(
         <div className="home-div">
             <div className="home-nav">
-                <a href='/calendar'>Calender</a>
-                <button onClick={handleLogout}>Logout</button>
+                <Link to="/calendar" style={{ textDecoration: 'none', marginLeft: 20}}>
+                    <CalendarIcon date={new Date()} style={{height: 10}}/>
+                </Link>
+                <button onClick={handleLogout} style={{float: 'right', marginRight: 10, height: '30px'}}>Logout</button>
             </div>
             <div className="home-prof">
-                <image className="prof-pic" src={currentUser.profile_picture}></image>
+                <img className="prof-pic" src={currentUser.profile_picture} alt="Profile"/>
                 <h2>Welcome {currentUser.username}!</h2>
             </div>
+            <button onClick={() => setGroupModal(true)}>Create/Find</button>
+            <FindCreateGroup show={groupModal} setShow={setGroupModal}/>
             <div className="wheel-container">
              {systems}
             </div>
