@@ -8,8 +8,8 @@ Rails.application.routes.draw do
   #basic RESTful routes
   resources :groups
   resources :users, only: [:show, :destroy, :update]
-  resources :group_events, only: [:create]
-  resources :personal_events, only: [:create]
+  resources :group_events, only: [:create, :destroy, :update]
+  resources :personal_events, only: [:create, :destroy, :update]
 
 
   #user session handling routes

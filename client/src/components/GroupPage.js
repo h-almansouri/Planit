@@ -2,10 +2,11 @@ import { useEffect, useState } from "react"
 import UserList from "./UserList"
 import TextField from '@mui/material/TextField';
 
-function GroupPage ({groupId}) {
-    const [groupData, setGroupData] = useState()
+function GroupPage () {
+    const [groupData, setGroupData] = useState(null)
+    const groupID = localStorage.getItem('groupId')
     useEffect(() => {
-        fetch(`/groups/${groupId}`)
+        fetch(`/groups/${groupID}`)
             .then(res => res.json())
             .then(data =>{
                  setGroupData(data)
@@ -19,7 +20,7 @@ function GroupPage ({groupId}) {
     };
     
     if(groupData) {
-        const userArray = groupData.all_users.map(user => <UserList user={user}/>)
+        const userArray = groupData.all_users?.map(user => <UserList user={user}/>)
         return(
             <div>
                 {userArray}

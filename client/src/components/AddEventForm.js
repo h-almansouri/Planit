@@ -1,7 +1,7 @@
 import Modal from 'react-bootstrap/Modal'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
-import { useState, useEffect} from 'react'
+import { useState } from 'react'
 import TimePicker from 'react-bootstrap-time-picker';
 
 function AddEventForm({showAdd, setShowAdd, currentUser, handleNewEventSubmit, adminGroups}){

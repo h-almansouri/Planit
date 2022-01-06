@@ -13,7 +13,8 @@ function Card(props) {
     let history = useNavigate();
 
     function handleClick () {
-        props.setGroupId(props.server.id)
+        // props.setGroupId(props.server.id)
+        localStorage.setItem('groupId', props.server.id)
         history("/group")
     }
 
