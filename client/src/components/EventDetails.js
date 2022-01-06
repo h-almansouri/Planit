@@ -1,10 +1,10 @@
 import Modal from 'react-bootstrap/Modal'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
-import { useState, useEffect} from 'react'
+import { useState } from 'react'
 import TimePicker from 'react-bootstrap-time-picker';
 
-function EventDetails({show, setShow, event, handleEditSubmit, currentUser}){
+function EventDetails({show, setShow, event, handleEditSubmit, currentUser, handleDeleteEvent}){
 
     const [showEdit, setShowEdit] = useState(false)
     const [formData, setFormData] = useState({
@@ -21,6 +21,7 @@ function EventDetails({show, setShow, event, handleEditSubmit, currentUser}){
   const [startTime, setStartTime] = useState('')
   const [endTime, setEndTime] = useState('')
   const [isGroup, setIsGroup] = useState(false)
+  const [showDelete, setShowDelete] = useState(false)
 
     const handleEditClose = () => {
       setShowEdit(false);
@@ -201,13 +202,23 @@ const handleEndTime = (e) => {
         </>
     }
 
-    console.log(event);
+    const handleClose = () => setShow(false)
 
-    const handleClose = () => setShowEdit(false)
+    const handleDeleteClose = () => setShowDelete(false)
 
     const handleEditClick = () => {
         setShow(false)
         setShowEdit(true)
+    }
+
+    const handleDeleteClick = () => {
+      setShow(false)
+      setShowDelete(true)
+    }
+
+    const handleDelete = () => {
+      handleDeleteEvent(event)
+      setShowDelete(false)
     }
  
     return(
@@ -228,10 +239,24 @@ const handleEndTime = (e) => {
           <Button variant="primary" onClick={handleEditClick}>
             Edit
           </Button>
-          <Button variant="danger" onClick={handleClose}>
+          <Button variant="danger" onClick={handleDeleteClick}>
             Delete
           </Button>
         </Modal.Footer>
+        </Modal>
+
+        <Modal show={showDelete} onHide={handleDeleteClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Are you sure you wish to delete {event.title}?</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Button variant="secondary" onClick={handleDeleteClose}>
+            Cancel
+          </Button>
+          <Button variant="danger" onClick={handleDelete} style={{float: 'right'}}>
+            Delete
+          </Button>
+        </Modal.Body>
         </Modal>
 
 

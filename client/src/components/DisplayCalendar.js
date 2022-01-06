@@ -164,6 +164,47 @@ function DisplayCalendar({currentUser}){
         console.log(data)
     }
 
+
+    const handleDeleteEvent = (event) => {
+        if(event.group_id){
+            fetch(`/group_events/${event.id}`, { method: 'DELETE' }).then(res => {
+                if (res.ok) {
+                    const deletedAllArray = allEvents.filter(e => e.id !== event.id)
+                    const deletedGroupArray = groupEvents.filter(e => e.id !== event.id)
+                    setGroupEvents(deletedGroupArray)
+                    setAllEvents(deletedAllArray)
+                    if(filterToggle === 'All'){
+                        setSelectedEvents(deletedAllArray)
+                    }else if(filterToggle === 'Group'){
+                        setSelectedEvents(deletedGroupArray)
+                    }
+                } else {
+                    res.json().then((errors) => {
+                        alert(errors.error);
+                    })
+                }
+            })
+        }else{
+            fetch(`/personal_events/${event.id}`, { method: 'DELETE' }).then(res => {
+                if (res.ok) {
+                    const deletedAllArray = allEvents.filter(e => e.id !== event.id)
+                    const deletedPersonalArray = personalEvents.filter(e => e.id !== event.id)
+                    setPersonalEvents(deletedPersonalArray)
+                    setAllEvents(deletedAllArray)
+                    if(filterToggle === 'All'){
+                        setSelectedEvents(deletedAllArray)
+                    }else if(filterToggle === 'Personal'){
+                        setSelectedEvents(deletedPersonalArray)
+                    }
+                } else {
+                    res.json().then((errors) => {
+                        alert(errors.error);
+                    })
+                }
+        })
+    }
+}
+
     
         return(
             <div>
@@ -197,7 +238,7 @@ function DisplayCalendar({currentUser}){
                 eventPropGetter={eventStyleGetter}
                 />
                 <AddEventForm showAdd={showAdd} setShowAdd={setShowAdd} currentUser={currentUser} handleNewEventSubmit={handleNewEventSubmit} adminGroups={adminGroups}/>
-                {selected ? <EventDetails show={showDetails} setShow={setShowDetails} event={selected} handleEditSubmit={handleEditSubmit} currentUser={currentUser}/> : null}
+                {selected ? <EventDetails show={showDetails} setShow={setShowDetails} event={selected} handleEditSubmit={handleEditSubmit} currentUser={currentUser} handleDeleteEvent={handleDeleteEvent}/> : null}
             </div>
         )
 }
