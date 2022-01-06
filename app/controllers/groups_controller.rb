@@ -12,6 +12,7 @@ class GroupsController < ApplicationController
 
     def create
         new_group = Group.create!(group_params)
+        AdminGroup.create(user_id: current_user.id, group_id: new_group.id)
         render json: new_group, status: :created
     end
 
@@ -25,6 +26,10 @@ class GroupsController < ApplicationController
         head :no_content
     end
 
+    def search_groups
+        group = Group.find_by!(name: params[:name])
+        render json: group, status: :ok
+    end
 
     private
 

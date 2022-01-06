@@ -14,17 +14,17 @@ function UserList ({user}) {
     }
     let serverList
     if(userData) {
-        serverList = userData.all_groups.map(group => <li><img src={group.group_picture} className="group-prof-pic"></img>{group.name}</li>)
+        serverList = userData.all_groups.map(group => <li><img src={group.group_picture} className="group-prof-pic" alt={group.name}/>{group.name}</li>)
     }
     return (
         <div>
             <div className="group-prof" onClick={handleClick}>
-                <img src={user.profile_picture} className="group-prof-pic"/>
+                <img src={user.profile_picture} className="group-prof-pic" alt={user.username}/>
                 <div title={user.username}>{user.username}</div>
             </div>
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
-                    <img src={user.profile_picture} className="group-prof-pic"/>
+                    <img src={user.profile_picture} className="group-prof-pic" alt={user.username}/>
                     <Modal.Title>{user.username}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>    
