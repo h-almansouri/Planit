@@ -94,7 +94,11 @@ code {
 .group-card{
   border-radius: 100%;
 }
-
+.user-text {
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+}
 .logged-out{
   height: 100vh;
   background-image: url('https://adwallpapers.xyz/uploads/posts/70650-planet-with-rings-4k-ultra-hd-wallpaper__space-and-galaxy.jpg');
@@ -145,20 +149,3 @@ code {
   border-radius: 50%;
   border: none
 }
-/* 
-.wheel-thing{
-  background-image: url('https://thumbs.dreamstime.com/b/plastic-bag-%D1%80%D0%B5%D0%B7-194794935.jpg');
-  background-color: red;
-  margin: '0';
-  margin-top: '300px';
-  margin-bottom: '270px';
-  padding: '0';
-  top: '50%';
-  left: '50%';
-  position: 'relative';
-  transform: 'translate(-50%, -50%)';
-  height: '100px';
-  width: '100px';
-  background-color: 'red';
-  border-radius: '50px'
-} */

@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   resources :group_events, only: [:create, :destroy, :update]
   resources :personal_events, only: [:create, :destroy, :update]
   resources :joined_groups, only: [:create]
+  resources :messages
 
 
   #user session handling routes
