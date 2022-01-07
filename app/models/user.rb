@@ -9,5 +9,5 @@ class User < ApplicationRecord
     has_many :group_admins, through: :admin_groups, source: :group
 
     validates :username, presence: true
-    validates :password_confirmation, presence: true
+    # validates :password_confirmation, presence: true
 end
