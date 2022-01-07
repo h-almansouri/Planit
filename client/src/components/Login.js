@@ -56,10 +56,12 @@ function Login({ setCurrentUser }){
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 8,
+            marginTop: 20,
+            marginLeft: -9,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
+            position: 'absolute',
           }}
         >
           <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
@@ -79,7 +81,7 @@ function Login({ setCurrentUser }){
               autoComplete="username"
 			  value={formData.username}
 			  onChange={(e) => setFormData({...formData, username: e.target.value})}
-            />
+            style={{backgroundColor: '#dbdbdb', borderRadius: 10}}/>
             <TextField
               margin="normal"
               required
@@ -91,6 +93,7 @@ function Login({ setCurrentUser }){
               autoComplete="current-password"
 			  value={formData.password}
 			  onChange={(e) => setFormData({...formData, password: e.target.value})}
+        style={{backgroundColor: '#dbdbdb', borderRadius: 10}}
             />
             <Button
               type="submit"
@@ -102,14 +105,14 @@ function Login({ setCurrentUser }){
             </Button>
             <Grid container>
               <Grid item>
-                <Link href="/signup" variant="body2">
+                <Link href="/signup" variant="body2" style={{color: '#ffffff', textDecoration: 'none'}}>
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
             </Grid>
             <Grid container>
               <Grid item>
-                <Link href="/" variant="body2">
+                <Link href="/" variant="body2" style={{color: '#ffffff', textDecoration: 'none'}}>
                   {"Home"}
                 </Link>
               </Grid>

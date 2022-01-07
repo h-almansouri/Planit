@@ -8,11 +8,13 @@ function LoggedOut({setCurrentUser}){
 
 
     return(
+        <div className="logged-out">
         <Routes>
             <Route path='/' element={<LandingPage />}/>
             <Route path='/login' element={<Login setCurrentUser={setCurrentUser}/>}/>
             <Route path='/signup' element={<Signup setCurrentUser={setCurrentUser}/>}/>
         </Routes>
+        </div>
     )
 }
 
