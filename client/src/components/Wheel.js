@@ -3,8 +3,6 @@ import Card from './Card.js';
 
 class Wheel extends React.Component {
 
-    
-
     constructor(props) {
         super(props)
     

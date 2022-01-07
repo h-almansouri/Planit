@@ -1,4 +1,5 @@
 import {useState, useEffect} from 'react'
+import UserProfile from './UserProfile';
 import Wheel from './Wheel'
 import FindCreateGroup from './FindCreateGroup'
 import CalendarTodayTwoToneIcon from '@mui/icons-material/CalendarTodayTwoTone';
@@ -10,6 +11,8 @@ function HomePage({setCurrentUser, currentUser, setGroupId}){
     const [allGroups, setAllGroups] = useState([])
     const [groupModal, setGroupModal] = useState(false)
     const [blockScroll, allowScroll] = useScrollBlock();
+    const [show, setShow] = useState(false);
+    const handleShow = () => setShow(true);
 
     useEffect(() => {
         fetch('/my_total_groups')
@@ -35,7 +38,7 @@ function HomePage({setCurrentUser, currentUser, setGroupId}){
                 <button onClick={handleLogout} style={{float: 'right', marginRight: 10, height: '30px'}}>Logout</button>
             </div>
             <div className="home-prof">
-                <img className="prof-pic" src={currentUser.profile_picture} alt="Profile"/>
+                <image className="prof-pic" src={currentUser.profile_picture} onClick={handleShow}></image>
                 <h2>Welcome {currentUser.username}!</h2>
             </div>
             <button onClick={() => setGroupModal(true)}>Create/Find</button>
@@ -44,8 +47,9 @@ function HomePage({setCurrentUser, currentUser, setGroupId}){
             <div className="wheel-container">
              {systems}
             </div>
+            <UserProfile show={show} setShow={setShow} currentUser={currentUser}/>
             </div>
-      </div>
+        </div>
     )
 }
 
