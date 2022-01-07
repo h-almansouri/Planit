@@ -97,17 +97,18 @@ function GroupPage ({currentUser}) {
                 <h1 style={{margin: 'auto', textAlign: 'center'}}>{groupData.name}</h1>
                 {userArray}
                 {messageArray}
-                <div style={{textAlign: 'center'}}>
+                <div>
                     {isJoined ? 
                     <TextField
                     fullWidth
                     id="outlined-multiline-flexible"
-                    label="Input stuff"
+                    label="Send Message"
                     multiline
                     maxRows={1}
                     value={value}
                     onChange={handleChange}
                     onKeyPress={handleSend}
+                    style={{position: 'fixed', bottom: 0, width: '100%'}}
                     />
                     : 
                     <Button variant="contained" onClick={handleJoin}>Join Group</Button>
