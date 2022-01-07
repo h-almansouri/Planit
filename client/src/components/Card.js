@@ -21,7 +21,7 @@ function Card(props) {
     if(props.server) {
         return (
             <div style={{ ...styles.card, left: `${props.center.x + coord.x}px`, top: `${props.center.y - coord.y}px` }} onClick={handleClick}>
-                <img className='group-card' alt="ok" src={props.server.group_picture ? props.server.group_picture : 'http://www.ncenet.com/wp-content/uploads/2020/04/No-image-found.jpg'} style={{ width: '100%', height: '100%' }} />
+                <img className='group-card' alt="ok" src={props.server.group_picture ? props.server.group_picture : 'http://www.ncenet.com/wp-content/uploads/2020/04/No-image-found.jpg'} style={{ width: '100%', height: '100%' }} title={props.server.name}/>
             </div>
         )
     } else return null   

@@ -11,6 +11,7 @@ function HomePage({setCurrentUser, currentUser, setGroupId}){
     const [allGroups, setAllGroups] = useState([])
     const [groupModal, setGroupModal] = useState(false)
     const [blockScroll, allowScroll] = useScrollBlock();
+    const [scrollBool, setScrollBool] = useState('test')
     const [show, setShow] = useState(false);
     const handleShow = () => setShow(true);
 
@@ -27,7 +28,7 @@ function HomePage({setCurrentUser, currentUser, setGroupId}){
         fetch('/logout', { method: 'DELETE' })
     }
 
-    const systems = allGroups.map(collection => <Wheel blockScroll={blockScroll} allowScroll={allowScroll} key={collection[0].name} array={collection} setGroupId={setGroupId}/>)
+    const systems = allGroups.map(collection => <Wheel blockScroll={() => blockScroll(setScrollBool)} allowScroll={() => allowScroll(setScrollBool)} key={collection[0].name} array={collection} setGroupId={setGroupId}/>)
     
     return(
         <div className="home-div">
@@ -38,13 +39,13 @@ function HomePage({setCurrentUser, currentUser, setGroupId}){
                 <button onClick={handleLogout} style={{float: 'right', marginRight: 10, height: '30px'}}>Logout</button>
             </div>
             <div className="home-prof">
-                <img className="prof-pic" src={currentUser.profile_picture} onClick={handleShow}></img>
+                <img className="prof-pic" src={currentUser.profile_picture} onClick={handleShow} alt="Profile"/>
                 <h2>Welcome {currentUser.username}!</h2>
             </div>
-            <button onClick={() => setGroupModal(true)}>Create/Find</button>
+            <button className='create-group-button' onClick={() => setGroupModal(true)}>Discover and Create</button>
             <FindCreateGroup show={groupModal} setShow={setGroupModal}/>
             <div className='scroll-bs'>
-            <div className="wheel-container">
+            <div className="wheel-container" >
              {systems}
             </div>
             <UserProfile show={show} setShow={setShow} currentUser={currentUser} setCurrentUser={setCurrentUser}/>
