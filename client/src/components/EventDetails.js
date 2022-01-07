@@ -3,6 +3,7 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import { useState } from 'react'
 import TimePicker from 'react-bootstrap-time-picker';
+import { GithubPicker } from 'react-color';
 
 function EventDetails({show, setShow, event, handleEditSubmit, currentUser, handleDeleteEvent}){
     const [showEdit, setShowEdit] = useState(false)
@@ -67,11 +68,16 @@ function EventDetails({show, setShow, event, handleEditSubmit, currentUser, hand
 
   const handleFormChange = (e) => {
 
-      if(e.target.id === "allDay"){
-          setFormData({
-              ...formData,
-              all_day: !formData.all_day
-          })
+    if(!e.target){
+        setFormData({
+            ...formData,
+            color: e.hex
+        })
+    }else if(e.target.id === "allDay"){
+        setFormData({
+            ...formData,
+            all_day: !formData.all_day
+        })
       }else if(e.target.id === "multiDay"){
           setMultiDay(!multiDay)
           setStartTime(0)
@@ -209,7 +215,6 @@ const handleEndTime = (e) => {
     const handleDeleteClose = () => setShowDelete(false)
 
     const handleEditClick = () => {
-        console.log(event)
         setFormData({
             user_id: currentUser.id,
             group_id: event.group_id,
@@ -306,6 +311,8 @@ const handleEndTime = (e) => {
                         value={formData.desc}
                         onChange={handleFormChange}
                     />
+                    <Form.Label htmlFor="color" style={{marginTop: 5, marginLeft: 10}}>Color:</Form.Label>
+                    <GithubPicker id='color' onChangeComplete={handleFormChange} color={formData.color} width="213px"/>
                     {editDate ? null : <Button style={{marginTop: 8}} onClick={() => handleEditDate()}>Edit Date(s)</Button>}
                     <br/>
                     {editDate ? <>

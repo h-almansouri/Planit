@@ -3,6 +3,7 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import { useState } from 'react'
 import TimePicker from 'react-bootstrap-time-picker';
+import { GithubPicker } from 'react-color';
 
 function AddEventForm({showAdd, setShowAdd, currentUser, handleNewEventSubmit, adminGroups}){
 
@@ -63,7 +64,13 @@ function AddEventForm({showAdd, setShowAdd, currentUser, handleNewEventSubmit, a
 
     const handleFormChange = (e) => {
 
-        if(e.target.id === "allDay"){
+
+        if(!e.target){
+            setFormData({
+                ...formData,
+                color: e.hex
+            })
+        }else if(e.target.id === "allDay"){
             setFormData({
                 ...formData,
                 all_day: !formData.all_day
@@ -229,6 +236,8 @@ function AddEventForm({showAdd, setShowAdd, currentUser, handleNewEventSubmit, a
                         value={formData.desc}
                         onChange={handleFormChange}
                     />
+                    <Form.Label htmlFor="color" style={{marginTop: 5, marginLeft: 10}}>Color:</Form.Label>
+                    <GithubPicker id='color' onChangeComplete={handleFormChange} color={formData.color} width="213px"/>
                     <Form.Label style={{marginLeft: 10, marginTop: 5}}>{multiDay ? "Stary Date:" : "Date:"}</Form.Label>
                     <Form.Control id="start" type="date" name="start" placeholder="Start Date"/>
                     {multiDay ?

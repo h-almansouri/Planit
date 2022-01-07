@@ -51,7 +51,7 @@ class Wheel extends React.Component {
 
     render() {
         return (
-            <div onWheel={this.handle_scroll} ref={ref_id => this.wheel = ref_id} style={styles.wheel}>
+            <div onMouseEnter={() => this.props.blockScroll()} onMouseLeave={() => this.props.allowScroll()} onWheel={this.handle_scroll} ref={ref_id => this.wheel = ref_id} style={styles.wheel}>
                 {this.state.cards}
             </div>
         )
@@ -61,9 +61,11 @@ class Wheel extends React.Component {
 
 const styles = {
     wheel: {
-        margin: '0',
+        // margin: '0',
+        marginTop: '300px',
+        marginBottom: '270px',
         padding: '0',
-        top: '50%',
+        // top: '50%',
         left: '50%',
         position: 'relative',
         transform: 'translate(-50%, -50%)',
