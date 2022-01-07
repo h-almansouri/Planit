@@ -5,7 +5,6 @@ import {Link} from 'react-router-dom'
 import Fab from '@mui/material/Fab';
 import SvgIcon from '@mui/material/SvgIcon';
 import Button from '@mui/material/Button';
-import { useNavigate } from 'react-router-dom';
 import Message from "./Message";
 
 function GroupPage ({currentUser}) {
@@ -24,9 +23,27 @@ function GroupPage ({currentUser}) {
     const [value, setValue] = useState();
 
     const handleChange = (event) => {
-        setValue(event.target.value);
-        console.log(event.target.value)
+        setValue(event.target.value);   
     };
+    function handleSend (ev) {
+        if(ev.key === 'Enter') {
+            const messageObj = {
+                group_id: groupID,
+                message: ev.target.value,
+                user_id: currentUser.id
+            }
+            fetch(`/messages`, {
+                method: 'POST',
+                headers: {'Content-Type' : 'application/json'},
+                body: JSON.stringify(messageObj)
+            })
+            .then(res => res.json())
+            .then(data => {
+                setMessages([...messages, data])
+                setValue("")
+            })
+        } 
+    }
 
     useEffect(() => {
         fetch(`/messages`)
@@ -78,10 +95,8 @@ function GroupPage ({currentUser}) {
                     </Fab>
                 </Link>
                 <h1 style={{margin: 'auto', textAlign: 'center'}}>{groupData.name}</h1>
-                {/* <Button color="error" onClick={handleLeave} variant="contained" style={{position: 'relative', marginLeft: "90%", marginTop: -80}}>Leave Group</Button> */}
                 {userArray}
                 {messageArray}
-                {/* <Message currentUser={currentUser}/> */}
                 <div style={{textAlign: 'center'}}>
                     {isJoined ? 
                     <TextField
@@ -89,9 +104,10 @@ function GroupPage ({currentUser}) {
                     id="outlined-multiline-flexible"
                     label="Input stuff"
                     multiline
-                    maxRows={4}
+                    maxRows={1}
                     value={value}
                     onChange={handleChange}
+                    onKeyPress={handleSend}
                     />
                     : 
                     <Button variant="contained" onClick={handleJoin}>Join Group</Button>
