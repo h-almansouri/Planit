@@ -55,7 +55,7 @@ function UserProfile ({show, setShow, currentUser, setCurrentUser}) {
     function handleFormChange(e) {
         setFormData({...formData, [e.target.id]: e.target.value})
     }
-    console.log(formData)
+
     return(
         <div>
             <Modal show={show} onHide={handleClose}>

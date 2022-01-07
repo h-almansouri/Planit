@@ -28,8 +28,6 @@ function HomePage({setCurrentUser, currentUser, setGroupId}){
         fetch('/logout', { method: 'DELETE' })
     }
 
-    console.log(scrollBool)
-
     const systems = allGroups.map(collection => <Wheel blockScroll={() => blockScroll(setScrollBool)} allowScroll={() => allowScroll(setScrollBool)} key={collection[0].name} array={collection} setGroupId={setGroupId}/>)
     
     return(
@@ -41,10 +39,10 @@ function HomePage({setCurrentUser, currentUser, setGroupId}){
                 <button onClick={handleLogout} style={{float: 'right', marginRight: 10, height: '30px'}}>Logout</button>
             </div>
             <div className="home-prof">
-                <image className="prof-pic" src={currentUser.profile_picture} onClick={handleShow}></image>
+                <img className="prof-pic" src={currentUser.profile_picture} onClick={handleShow} alt="Profile"/>
                 <h2>Welcome {currentUser.username}!</h2>
             </div>
-            <button onClick={() => setGroupModal(true)}>Create/Find</button>
+            <button className='create-group-button' onClick={() => setGroupModal(true)}>Discover and Create</button>
             <FindCreateGroup show={groupModal} setShow={setGroupModal}/>
             <div className='scroll-bs'>
             <div className="wheel-container" >

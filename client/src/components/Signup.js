@@ -63,10 +63,12 @@ function Signup({ setCurrentUser }) {
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 8,
+            marginTop: 18,
+            marginLeft: -15,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
+            position: 'absolute'
           }}
         >
           <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
@@ -87,6 +89,7 @@ function Signup({ setCurrentUser }) {
                   label="Username"
                   onChange={(e) => handleChange(e)}
                   value={formData.username}
+                  style={{backgroundColor: '#dbdbdb', borderRadius: 10}}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -100,6 +103,7 @@ function Signup({ setCurrentUser }) {
                   type="password"
                   onChange={(e) => handleChange(e)}
                   value={formData.password}
+                  style={{backgroundColor: '#dbdbdb', borderRadius: 10}}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -113,6 +117,7 @@ function Signup({ setCurrentUser }) {
                   autoComplete="confirm-password"
                   onChange={(e) => handleChange(e)}
                   value={formData.password_confirmation}
+                  style={{backgroundColor: '#dbdbdb', borderRadius: 10}}
                 />
               </Grid>
             </Grid>
@@ -126,14 +131,14 @@ function Signup({ setCurrentUser }) {
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="/login" variant="body2">
+                <Link href="/login" variant="body2" style={{color: '#ffffff', textDecoration: 'none'}}>
                   Already have an account? Log in
                 </Link>
               </Grid>
             </Grid>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="/" variant="body2">
+                <Link href="/" variant="body2" style={{color: '#ffffff', textDecoration: 'none'}}>
                     Home
                 </Link>
               </Grid>
