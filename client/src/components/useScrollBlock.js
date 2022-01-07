@@ -10,8 +10,9 @@ export default () => {
   const scrollBlocked = useRef();
   const html = safeDocument.documentElement;
   const { body } = safeDocument;
+  const groupDiv = document.getElementsByClassName('wheel-container')
 
-  const blockScroll = () => {
+  const blockScroll = (setScrollBool) => {
     if (!body || !body.style || scrollBlocked.current) return;
 
     const scrollBarWidth = window.innerWidth - html.clientWidth;
@@ -29,11 +30,13 @@ export default () => {
     body.style.position = 'relative'; /* [1] */
     body.style.overflow = 'hidden'; /* [2] */
     body.style.paddingRight = `${bodyPaddingRight + scrollBarWidth}px`;
+    // groupDiv.style.paddingRight = `${bodyPaddingRight + scrollBarWidth}px`
+    setScrollBool(`${bodyPaddingRight + scrollBarWidth}px`)
 
     scrollBlocked.current = true;
   };
 
-  const allowScroll = () => {
+  const allowScroll = (setScrollBool) => {
     if (!body || !body.style || !scrollBlocked.current) return;
 
     html.style.position = '';
@@ -41,6 +44,8 @@ export default () => {
     body.style.position = '';
     body.style.overflow = '';
     body.style.paddingRight = '';
+
+    setScrollBool(false)
 
     scrollBlocked.current = false;
   };
