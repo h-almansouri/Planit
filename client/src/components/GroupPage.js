@@ -6,10 +6,12 @@ import Fab from '@mui/material/Fab';
 import SvgIcon from '@mui/material/SvgIcon';
 import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';
+import Message from "./Message";
 
 function GroupPage ({currentUser}) {
     const [groupData, setGroupData] = useState(null)
     const [isJoined, setIsJoined] = useState(false)
+    const [messages, setMessages] = useState([])
     const groupID = localStorage.getItem('groupId')
     useEffect(() => {
         fetch(`/groups/${groupID}`)
@@ -17,24 +19,29 @@ function GroupPage ({currentUser}) {
             .then(data =>{
                  setGroupData(data)
                  setIsJoined(data.user_bool)
-                 console.log(data)
             })
     }, [])
     const [value, setValue] = useState();
 
-    let history = useNavigate()
-
     const handleChange = (event) => {
         setValue(event.target.value);
+        console.log(event.target.value)
     };
 
+    useEffect(() => {
+        fetch(`/messages`)
+        .then(res => res.json())
+        .then(data => {
+            setMessages(data)
+        })
+    }, [])
     function HomeIcon(props) {
         return (
           <SvgIcon {...props}>
             <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
           </SvgIcon>
         );
-      }
+    }
 
     const handleJoin = () => {
 
@@ -59,9 +66,10 @@ function GroupPage ({currentUser}) {
             }
         })
     }
-    
+
     if(groupData) {
         const userArray = groupData.all_users?.map(user => <UserList user={user} key={user.id}/>)
+        const messageArray = messages.map(message => <Message currentUser={currentUser} message={message} groupID={groupID}/>)
         return(
             <div>
                 <Link to="/" style={{ textDecoration: 'none', position: 'absolute', marginLeft: 20 }}>
@@ -70,7 +78,10 @@ function GroupPage ({currentUser}) {
                     </Fab>
                 </Link>
                 <h1 style={{margin: 'auto', textAlign: 'center'}}>{groupData.name}</h1>
+                {/* <Button color="error" onClick={handleLeave} variant="contained" style={{position: 'relative', marginLeft: "90%", marginTop: -80}}>Leave Group</Button> */}
                 {userArray}
+                {messageArray}
+                {/* <Message currentUser={currentUser}/> */}
                 <div style={{textAlign: 'center'}}>
                     {isJoined ? 
                     <TextField

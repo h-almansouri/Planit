@@ -89,3 +89,9 @@ code {
 .group-card{
   border-radius: 100%;
 }
+
+.user-text {
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+}

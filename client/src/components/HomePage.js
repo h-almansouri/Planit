@@ -38,7 +38,7 @@ function HomePage({setCurrentUser, currentUser, setGroupId}){
                 <button onClick={handleLogout} style={{float: 'right', marginRight: 10, height: '30px'}}>Logout</button>
             </div>
             <div className="home-prof">
-                <image className="prof-pic" src={currentUser.profile_picture} onClick={handleShow}></image>
+                <img className="prof-pic" src={currentUser.profile_picture} onClick={handleShow}></img>
                 <h2>Welcome {currentUser.username}!</h2>
             </div>
             <button onClick={() => setGroupModal(true)}>Create/Find</button>
