@@ -47,7 +47,7 @@ function HomePage({setCurrentUser, currentUser, setGroupId}){
             <div className="wheel-container">
              {systems}
             </div>
-            <UserProfile show={show} setShow={setShow} currentUser={currentUser}/>
+            <UserProfile show={show} setShow={setShow} currentUser={currentUser} setCurrentUser={setCurrentUser}/>
             </div>
         </div>
     )
