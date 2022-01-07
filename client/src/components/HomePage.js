@@ -20,7 +20,7 @@ function HomePage({setCurrentUser, currentUser, setGroupId}){
         .then(data =>{
             setAllGroups(data.all_groups)
         })
-      }, [])
+    }, [])
 
     const handleLogout = () => {
         setCurrentUser(null)
