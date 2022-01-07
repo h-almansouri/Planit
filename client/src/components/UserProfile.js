@@ -3,8 +3,8 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import { useState } from "react";
 
-function UserProfile ({show, setShow, currentUser}) {
-    
+function UserProfile ({show, setShow, currentUser, setCurrentUser}) {
+    const [showDelete, setShowDelete] = useState(false)
     const handleClose = () => {
         setShow(false)
         setFormData({
@@ -31,6 +31,27 @@ function UserProfile ({show, setShow, currentUser}) {
         .then(res => res.json())
         .then(data => console.log(data))
     }
+    const handleDeleteClose = () => setShowDelete(false)
+    const handleDeleteClick = () => {
+        setShow(false)
+        setShowDelete(true)
+    }
+    const handleDelete = () => {
+        handleDeleteProfile(currentUser)
+        setShowDelete(false)
+    }
+    const handleDeleteProfile = (profile) => {
+        fetch(`/users/${profile.id}`, {method: 'DELETE'}).then(res => {
+            if(res.ok) {
+                setCurrentUser(null)
+                fetch('/logout', { method: 'DELETE' })
+            } else {
+                res.json().then((errors) => {
+                    alert(errors.errors);
+                })
+            }
+        })
+    }
     function handleFormChange(e) {
         setFormData({...formData, [e.target.id]: e.target.value})
     }
@@ -50,6 +71,9 @@ function UserProfile ({show, setShow, currentUser}) {
                     <Form.Label style={{marginTop: 5, marginLeft: 10}}>Profile Picture</Form.Label>
                     <Form.Control type="text" id="profile_picture" value={formData.profile_picture} onChange={handleFormChange}/>
                     <Modal.Footer>
+                        <Button variant="danger" onClick={handleDeleteClick}>
+                        Delete Account
+                        </Button>
                         <Button variant="secondary" onClick={handleClose}>
                         Cancel
                         </Button>
@@ -59,6 +83,20 @@ function UserProfile ({show, setShow, currentUser}) {
                     </Modal.Footer>
                 </Form.Group>
                 </Form>
+            </Modal>
+
+            <Modal show={showDelete} onHide={handleDeleteClose}>
+            <Modal.Header closeButton>
+            <Modal.Title>Are you sure you wish to delete ?</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+            <Button variant="secondary" onClick={handleDeleteClose}>
+                Cancel
+            </Button>
+            <Button variant="danger" onClick={handleDelete} style={{float: 'right'}}>
+                Delete
+            </Button>
+            </Modal.Body>
             </Modal>
         </div>
     )
