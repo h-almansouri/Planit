@@ -1,18 +1,18 @@
 puts "🌱 Seeding spices..."
 
 puts 'Creating users...'
-mike = User.create(username: "neisguy", birthday: DateTime.new(1997,4,15), profile_picture: "https://www.nicepng.com/png/detail/246-2469081_jake-adventure-time-and-jake-the-dog-image.png", bio: "bogos binted", password: "planit", password_confirmation: "planit")
-hisham = User.create(username: "velcruza", birthday: DateTime.new(1999,7,25), profile_picture: "https://www.nicepng.com/png/detail/246-2469081_jake-adventure-time-and-jake-the-dog-image.png", bio: "bogos binted", password: "planit", password_confirmation: "planit")
-joe = User.create(username: "goldennugget", birthday: DateTime.new(1996,7,10), profile_picture: "https://www.nicepng.com/png/detail/246-2469081_jake-adventure-time-and-jake-the-dog-image.png", bio: "bogos binted", password: "planit", password_confirmation: "planit")
-mitch = User.create(username: "chocolaterain", birthday: DateTime.new(1997,3,30), profile_picture: "https://www.nicepng.com/png/detail/246-2469081_jake-adventure-time-and-jake-the-dog-image.png", bio: "bogos binted", password: "planit", password_confirmation: "planit")
+mike = User.create(username: "neisguy", birthday: DateTime.new(1997,4,15), profile_picture: "https://www.nicepng.com/png/detail/246-2469081_jake-adventure-time-and-jake-the-dog-image.png", bio: "I'm a pretty neis guy", password: "planit", password_confirmation: "planit")
+hisham = User.create(username: "velcruza", birthday: DateTime.new(1999,7,25), profile_picture: "https://www.nicepng.com/png/detail/246-2469081_jake-adventure-time-and-jake-the-dog-image.png", bio: "WoW legend", password: "planit", password_confirmation: "planit")
+joe = User.create(username: "goldennugget", birthday: DateTime.new(1996,7,10), profile_picture: "https://www.nicepng.com/png/detail/246-2469081_jake-adventure-time-and-jake-the-dog-image.png", bio: "COD addict", password: "planit", password_confirmation: "planit")
+mitch = User.create(username: "chocolaterain", birthday: DateTime.new(1997,3,30), profile_picture: "https://www.nicepng.com/png/detail/246-2469081_jake-adventure-time-and-jake-the-dog-image.png", bio: "daddy longlegs", password: "planit", password_confirmation: "planit")
 
 
 puts 'Creating groups...'
-apex = Group.create(name: "Apex Legends", group_picture: "https://www.nicepng.com/png/detail/246-2469081_jake-adventure-time-and-jake-the-dog-image.png")
-league = Group.create(name: "League of Legends", group_picture: "https://www.nicepng.com/png/detail/246-2469081_jake-adventure-time-and-jake-the-dog-image.png")
-vball = Group.create(name: "Volleyball League", group_picture: "https://www.nicepng.com/png/detail/246-2469081_jake-adventure-time-and-jake-the-dog-image.png")
-wow = Group.create(name: "World of Warcraft", group_picture: "https://www.nicepng.com/png/detail/246-2469081_jake-adventure-time-and-jake-the-dog-image.png")
-wow2 = Group.create(name: "wow2", group_picture: "https://www.nicepng.com/png/detail/246-2469081_jake-adventure-time-and-jake-the-dog-image.png")
+apex = Group.create(name: "Apex Legends", group_picture: "https://media.contentapi.ea.com/content/dam/apex-legends/common/escape/apex-featured-image-escape-season.jpg.adapt.crop16x9.1023w.jpg")
+league = Group.create(name: "League of Legends", group_picture: "https://pentagram-production.imgix.net/cc7fa9e7-bf44-4438-a132-6df2b9664660/EMO_LOL_02.jpg?rect=0%2C0%2C1440%2C1512&w=640&crop=1&fm=jpg&q=70&auto=format&fit=crop&h=672")
+vball = Group.create(name: "Volleyball League", group_picture: "https://assets.nfhslearn.com/uploads/course/icon_image/9000/Coaching_Volleyball_2x.png")
+wow = Group.create(name: "World of Warcraft", group_picture: "https://image.pngaaa.com/943/859943-middle.png")
+climb = Group.create(name: "Climbing", group_picture: "https://www.roadaffair.com/wp-content/uploads/2019/06/rock-climbing-shoes-shutterstock_235573933.jpg")
 wow3 = Group.create(name: "wow3", group_picture: "https://www.nicepng.com/png/detail/246-2469081_jake-adventure-time-and-jake-the-dog-image.png")
 wow4 = Group.create(name: "wow4", group_picture: "https://www.nicepng.com/png/detail/246-2469081_jake-adventure-time-and-jake-the-dog-image.png")
 wow5 = Group.create(name: "wow5", group_picture: "https://www.nicepng.com/png/detail/246-2469081_jake-adventure-time-and-jake-the-dog-image.png")
@@ -24,6 +24,7 @@ puts 'Creating admins...'
 AdminGroup.create(user_id: mike.id, group_id: apex.id)
 AdminGroup.create(user_id: joe.id, group_id: league.id)
 AdminGroup.create(user_id: mitch.id, group_id: vball.id)
+AdminGroup.create(user_id: mitch.id, group_id: climb.id)
 AdminGroup.create(user_id: hisham.id, group_id: wow.id)
 
 puts 'Creating joined groups...'
@@ -33,7 +34,9 @@ JoinedGroup.create(user_id: mike.id, group_id: vball.id)
 JoinedGroup.create(user_id: hisham.id, group_id: apex.id)
 JoinedGroup.create(user_id: joe.id, group_id: wow.id)
 JoinedGroup.create(user_id: mike.id, group_id: wow.id)
-JoinedGroup.create(user_id: mike.id, group_id: wow2.id)
+JoinedGroup.create(user_id: mike.id, group_id: climb.id)
+JoinedGroup.create(user_id: joe.id, group_id: climb.id)
+JoinedGroup.create(user_id: hisham.id, group_id: climb.id)
 JoinedGroup.create(user_id: mike.id, group_id: wow3.id)
 JoinedGroup.create(user_id: mike.id, group_id: wow4.id)
 JoinedGroup.create(user_id: mike.id, group_id: wow5.id)
@@ -43,11 +46,13 @@ JoinedGroup.create(user_id: mike.id, group_id: wow7.id)
 
 puts 'Creating messages...'
 Message.create(user_id: mitch.id, group_id: apex.id, message: "Fun game")
-Message.create(user_id: mitch.id, group_id: vball.id, message: "Bump set spike")
+Message.create(user_id: mitch.id, group_id: vball.id, message: "Did we register our team yet?")
 Message.create(user_id: mike.id, group_id: apex.id, message: "wraith sucks")
-Message.create(user_id: mike.id, group_id: vball.id, message: "What time is the game")
+Message.create(user_id: mike.id, group_id: vball.id, message: "Yeah I did on Monday")
 Message.create(user_id: hisham.id, group_id: wow.id, message: "I'll hard carry")
 Message.create(user_id: joe.id, group_id: league.id, message: "I hate this game, it's nothing like cod")
+Message.create(user_id: mike.id, group_id: climb.id, message: "Got new shoes lets gooooooo")
+Message.create(user_id: mitch.id, group_id: climb.id, message: "Ayyy")
 
 puts 'Creating personal events...'
 PersonalEvent.create(user_id: mike.id, title: 'dentist appointment', start: DateTime.new(2022, 1, 4, 15), end: DateTime.new(2022, 1, 4, 16), all_day: false, desc: "This is a long time coming", color: "red")
