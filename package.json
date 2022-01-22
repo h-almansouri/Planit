@@ -1,59 +1,14 @@
 {
-  "name": "react-rails-api-project-template-client",
-  "version": "0.1.0",
-  "private": true,
-  "proxy": "http://localhost:3000",
-  "engines": {
-    "node": "16.x",
-    "npm": "7.x"
-  },
-  "dependencies": {
-    "@emotion/react": "^11.7.1",
-    "@emotion/styled": "^11.6.0",
-    "@mui/icons-material": "^5.2.5",
-    "@mui/material": "^5.2.7",
-    "@testing-library/jest-dom": "^5.13.0",
-    "@testing-library/react": "^11.2.7",
-    "@testing-library/user-event": "^12.8.3",
-    "bootstrap": "^5.1.3",
-    "material-ui-color": "^1.2.0",
-    "moment": "^2.29.1",
-    "node-sass": "^6.0.1",
-    "react": "^17.0.2",
-    "react-big-calendar": "^0.38.2",
-    "react-bootstrap": "^2.1.0",
-    "react-bootstrap-time-picker": "^2.0.1",
-    "react-calendar-icon": "^0.9.5",
-    "react-color": "^2.19.3",
-    "react-dom": "^17.0.2",
-    "react-icons": "^4.3.1",
-    "react-router-dom": "^6.2.1",
-    "react-scripts": "4.0.3",
-    "styled-components": "^5.3.3",
-    "web-vitals": "^1.1.2"
-  },
-  "scripts": {
-    "start": "PORT=4000 react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "name": "phase-4-deploying-app-demo",
+    "description": "Build scripts for Heroku",
+    "engines": {
+      "node": "16.x"
+    },
+    "scripts": {
+      "build": "npm install --prefix client && npm run build --prefix client",
+      "clean": "rm -rf public",
+      "deploy": "cp -a client/build/. public/",
+      "heroku-postbuild": "npm run clean && npm run build && npm run deploy"
+    }
   }
-}
+  
