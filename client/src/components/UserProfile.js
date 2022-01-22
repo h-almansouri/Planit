@@ -29,7 +29,14 @@ function UserProfile ({show, setShow, currentUser, setCurrentUser}) {
         }
         fetch(`/users/${currentUser.id}`, configObj)
         .then(res => res.json())
-        .then(data => console.log(data))
+        .then(data => {
+            setFormData({
+            username: data.username,
+            bio: data.bio,
+            profile_picture: data.profile_picture
+             })
+            setShow(false)
+        })
     }
     const handleDeleteClose = () => setShowDelete(false)
     const handleDeleteClick = () => {

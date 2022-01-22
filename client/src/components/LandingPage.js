@@ -18,8 +18,6 @@ function LandingPage(){
             <Button onClick={handleLogin} style={{marginRight: '5%'}}>Login</Button>
             <Button variant="info" onClick={handleSignUp} style={{marginLeft: '5%'}}>Signup</Button>
             </div>
-            {/* <Button onClick={handleLogin} style={{marginTop: '65vh', marginLeft: '37%'}}>Login</Button>
-            <Button variant="info" onClick={handleSignUp} style={{marginTop: '65vh', marginLeft: '20%'}}>Signup</Button> */}
         </div>
     )
 }
