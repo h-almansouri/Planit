@@ -1,3 +1,6 @@
+require 'uri'
+require 'net/http'
+
 class UsersController < ApplicationController
 
     skip_before_action :authenticate_user, only: [:create, :me]

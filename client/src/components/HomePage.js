@@ -13,6 +13,9 @@ function HomePage({setCurrentUser, currentUser, setGroupId}){
     const [blockScroll, allowScroll] = useScrollBlock();
     const [scrollBool, setScrollBool] = useState('test')
     const [show, setShow] = useState(false);
+    const [userName, setUserName] = useState(currentUser.username)
+    const [profPic, setProfPic] = useState(currentUser.profile_picture)
+
     const handleShow = () => setShow(true);
 
     useEffect(() => {
@@ -39,8 +42,8 @@ function HomePage({setCurrentUser, currentUser, setGroupId}){
                 <button onClick={handleLogout} style={{float: 'right', marginRight: 10, height: '30px'}}>Logout</button>
             </div>
             <div className="home-prof">
-                <img className="prof-pic" src={currentUser.profile_picture} onClick={handleShow} alt="Profile"/>
-                <h2>Welcome {currentUser.username}!</h2>
+                <img className="prof-pic" src={profPic} onClick={handleShow} alt="Profile"/>
+                <h2>Welcome {userName}!</h2>
             </div>
             <button className='create-group-button' onClick={() => setGroupModal(true)}>Discover and Create</button>
             <FindCreateGroup show={groupModal} setShow={setGroupModal}/>
@@ -48,7 +51,7 @@ function HomePage({setCurrentUser, currentUser, setGroupId}){
             <div className="wheel-container" >
              {systems}
             </div>
-            <UserProfile show={show} setShow={setShow} currentUser={currentUser} setCurrentUser={setCurrentUser}/>
+            <UserProfile show={show} setShow={setShow} currentUser={currentUser} setCurrentUser={setCurrentUser} setUserName={setUserName} setProfPic={setProfPic}/>
             </div>
         </div>
     )
