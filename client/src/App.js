@@ -9,6 +9,7 @@ function App() {
 
   const [currentUser, setCurrentUser] = useState(null);
   const [authenticated, setAuthenticated] = useState(false);
+  const test_var = 42
 
   useEffect(() => {
     fetch("/me", {
