@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 function LandingPage(){
     let history = useNavigate()
+
     function handleLogin () {
         console.log("login")
         history('/login')
@@ -11,6 +12,8 @@ function LandingPage(){
         console.log("signup")
         history('/signup')
     }
+
+
     return(
         <div >
             <h1 className="planit-title">PLANIT</h1>

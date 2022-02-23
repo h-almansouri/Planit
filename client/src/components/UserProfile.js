@@ -3,8 +3,13 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import { useState } from "react";
 
-function UserProfile ({show, setShow, currentUser, setCurrentUser}) {
+function UserProfile ({show, setShow, currentUser, setCurrentUser, setUserName, setProfPic}) {
     const [showDelete, setShowDelete] = useState(false)
+    const [formData, setFormData] = useState({
+        username: currentUser.username,
+        bio: currentUser.bio,
+        profile_picture: currentUser.profile_picture
+    })
     const handleClose = () => {
         setShow(false)
         setFormData({
@@ -13,11 +18,6 @@ function UserProfile ({show, setShow, currentUser, setCurrentUser}) {
             profile_picture: currentUser.profile_picture
         })
     };
-    const [formData, setFormData] = useState({
-        username: currentUser.username,
-        bio: currentUser.bio,
-        profile_picture: currentUser.profile_picture
-    })
     function handleSubmit (e) {
         e.preventDefault()
         const configObj = {
@@ -29,7 +29,16 @@ function UserProfile ({show, setShow, currentUser, setCurrentUser}) {
         }
         fetch(`/users/${currentUser.id}`, configObj)
         .then(res => res.json())
-        .then(data => console.log(data))
+        .then(data => {
+            setFormData({
+            username: data.username,
+            bio: data.bio,
+            profile_picture: data.profile_picture
+             })
+            setUserName(data.username)
+            setProfPic(data.profile_picture)
+            setShow(false)
+        })
     }
     const handleDeleteClose = () => setShowDelete(false)
     const handleDeleteClick = () => {
