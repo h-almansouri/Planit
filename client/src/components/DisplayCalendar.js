@@ -2,7 +2,7 @@ import { Calendar, momentLocalizer, Views } from 'react-big-calendar';
 import moment from 'moment';
 // import 'react-big-calendar/lib/css/react-big-calendar.css';
 import {useState, useEffect} from 'react'
-import 'react-big-calendar/lib/sass/styles.scss';
+import '../sass/styles.scss';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import {Link} from 'react-router-dom'
