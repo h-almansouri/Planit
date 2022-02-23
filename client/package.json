@@ -4,7 +4,8 @@
   "private": true,
   "proxy": "http://localhost:3000",
   "engines": {
-    "node": "16.x"
+    "node": "16.x",
+    "npm": "7.x"
   },
   "dependencies": {
     "@emotion/react": "^11.7.1",
