@@ -1,6 +1,6 @@
 # PLANIT
 
-PLANIT was built to funciton as an event-scheduling planner for users to coordinate group and individual events. User can create and join groups, message with other group users, and build their own calendar from the groups that they are a part of.
+PLANIT was built to function as an event-scheduling planner for users to coordinate group and individual events. User can create and join groups, message with other group users, and build their own calendar from the groups that they are a part of.
 
 ## Walkthrough
 
